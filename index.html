@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drop. Melt. Drink. | Lemon Ice Cubes</title>
+  <meta name="description" content="Frozen lemon hydration cubes that upgrade your water in seconds. Drop. Melt. Drink." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="#top" aria-label="Lemon Ice Cubes home">
+        <span class="brand__mark"></span>
+        <span class="brand__name">Lemon Ice Cubes</span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__link" href="#packs">Packs</a>
+        <a class="nav__link" href="#how">How it works</a>
+        <a class="nav__link" href="#faq">FAQ</a>
+        <a class="btn btn--small btn--primary" href="#packs">Shop</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <div class="pill">Ships cold • Natural ingredients • 30-day guarantee</div>
+
+          <h1 class="hero__title">Drop. Melt. Drink.</h1>
+
+          <p class="hero__subtitle">
+            Frozen lemon cubes that turn plain water into crisp lemon water in seconds.
+            No cutting. No mess. Consistent taste every time.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="#packs" data-scroll>Buy Lemon Ice Cubes</a>
+            <a class="btn btn--ghost btn--lg" href="#how" data-scroll>See how it works</a>
+          </div>
+
+          <div class="hero__trust">
+            <div class="trust__item">
+              <span class="trust__label">One cube</span>
+              <span class="trust__value">One glass</span>
+            </div>
+            <div class="trust__item">
+              <span class="trust__label">Prep time</span>
+              <span class="trust__value">0 minutes</span>
+            </div>
+            <div class="trust__item">
+              <span class="trust__label">Best for</span>
+              <span class="trust__value">Gym • Work • Home</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__media">
+          <!-- Replace poster/src with your real assets -->
+          <div class="media-card">
+            <img class="media-card__video" src="assets/img/lemon-ice-granma.jpeg" alt="Granma">
+
+            <div class="media-card__overlay">
+              <div class="overlay__badge">Drop a cube into water</div>
+              <div class="overlay__hint">Loop video/GIF works great here</div>
+            </div>
+          </div>
+
+          <div class="media-note">
+            Tip: A 6–10s loop (cube toss → splash → quick stir → sip) boosts conversions.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKS (immediately under hero) -->
+    <section class="packs" id="packs">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Choose your pack</h2>
+          <p class="section-subtitle">One cube per drink. More cubes = better value.</p>
+        </div>
+
+        <div class="pack-grid">
+          <!-- 10 -->
+          <article class="card pack" data-pack="10">
+            <div class="pack__top">
+              <h3 class="pack__name">10 Pack</h3>
+              <div class="pack__tag">Try it</div>
+            </div>
+
+            <p class="pack__desc">Perfect first order. Clean lemon water on demand.</p>
+
+            <div class="pack__meta">
+              <div class="meta">
+                <span class="meta__label">Drinks</span>
+                <span class="meta__value">~10</span>
+              </div>
+              <div class="meta">
+                <span class="meta__label">Best for</span>
+                <span class="meta__value">Testing</span>
+              </div>
+              <div class="meta">
+                <span class="meta__label">Storage</span>
+                <span class="meta__value">Keep frozen</span>
+              </div>
+            </div>
+
+            <div class="pack__price">
+              <span class="price">$X</span>
+              <span class="per">($X / cube)</span>
+            </div>
+
+            <button class="btn btn--primary btn--full" type="button" data-buy>
+              Buy 10 Pack
+            </button>
+
+            <div class="pack__fineprint">Ships cold. 30-day guarantee.</div>
+          </article>
+
+          <!-- 20 (Most Popular) -->
+          <article class="card pack pack--featured" data-pack="20">
+            <div class="pack__badge">Most Popular</div>
+
+            <div class="pack__top">
+              <h3 class="pack__name">20 Pack</h3>
+              <div class="pack__tag">Best balance</div>
+            </div>
+
+            <p class="pack__desc">The daily driver. Great value and lasts longer.</p>
+
+            <div class="pack__meta">
+              <div class="meta">
+                <span class="meta__label">Drinks</span>
+                <span class="meta__value">~20</span>
+              </div>
+              <div class="meta">
+                <span class="meta__label">Savings</span>
+                <span class="meta__value">Save vs 10</span>
+              </div>
+              <div class="meta">
+                <span class="meta__label">Best for</span>
+                <span class="meta__value">Routine</span>
+              </div>
+            </div>
+
+            <div class="pack__price">
+              <span class="price">$Y</span>
+              <span class="per">($Y / cube)</span>
+            </div>
+
+            <button class="btn btn--primary btn--full" type="button" data-buy>
+              Buy 20 Pack
+            </button>
+
+            <div class="pack__fineprint">Ships cold. 30-day guarantee.</div>
+          </article>
+
+          <!-- 30 -->
+          <article class="card pack" data-pack="30">
+            <div class="pack__top">
+              <h3 class="pack__name">30 Pack</h3>
+              <div class="pack__tag">Best value</div>
+            </div>
+
+            <p class="pack__desc">For daily lemon water lovers. Lowest price per cube.</p>
+
+            <div class="pack__meta">
+              <div class="meta">
+                <span class="meta__label">Drinks</span>
+                <span class="meta__value">~30</span>
+              </div>
+              <div class="meta">
+                <span class="meta__label">Best for</span>
+                <span class="meta__value">Every day</span>
+              </div>
+              <div class="meta">
+                <span class="meta__label">Bonus</span>
+                <span class="meta__value">Free ship (opt)</span>
+              </div>
+            </div>
+
+            <div class="pack__price">
+              <span class="price">$Z</span>
+              <span class="per">($Z / cube)</span>
+            </div>
+
+            <button class="btn btn--primary btn--full" type="button" data-buy>
+              Buy 30 Pack
+            </button>
+
+            <div class="pack__fineprint">Ships cold. 30-day guarantee.</div>
+          </article>
+        </div>
+
+        <div class="packs__note">
+          Works in still water, sparkling water, tea, smoothies, and cocktails.
+          Want it stronger? Use 2 cubes.
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits" id="benefits">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Why Lemon Ice Cubes?</h2>
+          <p class="section-subtitle">Simple, clean, and consistent — built for daily hydration.</p>
+        </div>
+
+        <div class="benefit-grid">
+          <div class="card benefit">
+            <h3 class="benefit__title">Instant flavor</h3>
+            <p class="benefit__text">Upgrade your water in seconds. No waiting, no prep.</p>
+          </div>
+
+          <div class="card benefit">
+            <h3 class="benefit__title">No mess</h3>
+            <p class="benefit__text">No cutting, squeezing, seeds, or sticky counters.</p>
+          </div>
+
+          <div class="card benefit">
+            <h3 class="benefit__title">Consistent taste</h3>
+            <p class="benefit__text">Portion-perfect cubes for the same flavor every time.</p>
+          </div>
+
+          <div class="card benefit">
+            <h3 class="benefit__title">More water, naturally</h3>
+            <p class="benefit__text">When it tastes better, you drink more — without sugar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how">
+      <div class="container how__grid">
+        <div>
+          <div class="section-head section-head--tight">
+            <h2 class="section-title">How it works</h2>
+            <p class="section-subtitle">Three steps. Ten seconds. Done.</p>
+          </div>
+
+          <ol class="steps">
+            <li class="step">
+              <div class="step__num">1</div>
+              <div class="step__body">
+                <div class="step__title">Drop</div>
+                <div class="step__text">Add 1 cube to your glass or bottle.</div>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step__num">2</div>
+              <div class="step__body">
+                <div class="step__title">Fill</div>
+                <div class="step__text">Pour in cold water (still or sparkling).</div>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step__num">3</div>
+              <div class="step__body">
+                <div class="step__title">Melt & drink</div>
+                <div class="step__text">Stir or shake. Sip immediately.</div>
+              </div>
+            </li>
+          </ol>
+
+          <div class="how__cta">
+            <a class="btn btn--primary btn--lg" href="#packs" data-scroll>Shop packs</a>
+          </div>
+        </div>
+
+        <div class="how__media">
+            <div class="card how-card">
+                <div class="how-card__label">Drop. Melt. Drink.</div>
+
+                <div class="how-card__placeholder" style="padding:0; overflow:hidden; border-style:solid;">
+                <img 
+                    src="assets/img/example.png" 
+                    alt="Lemon ice cubes product shot"
+                    style="width:100%; height:100%; object-fit:cover; display:block;"
+                >
+                </div>
+
+                <div style="margin-top:12px; font-size:13px; color:rgba(255,255,255,0.7); font-weight:650;">
+                <strong>Drop:</strong> Add 1 cube • 
+                <strong>Melt:</strong> Dissolves fast • 
+                <strong>Drink:</strong> Refresh & enjoy
+                </div>
+            </div>
+        </div>
+
+
+
+          <div class="how__fine">
+            Keep frozen. Use anytime. Great for gym bottles and work desks.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="proof" id="proof">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">People are drinking more water</h2>
+          <p class="section-subtitle">Short reviews work best. Keep them real.</p>
+        </div>
+
+        <div class="proof-grid">
+          <article class="card quote">
+            <div class="quote__stars" aria-label="5 star review">★★★★★</div>
+            <p class="quote__text">“I actually finish my bottle now. Clean taste.”</p>
+            <div class="quote__name">— First customer</div>
+          </article>
+
+          <article class="card quote">
+            <div class="quote__stars" aria-label="5 star review">★★★★★</div>
+            <p class="quote__text">“No mess. Just drop a cube and go.”</p>
+            <div class="quote__name">— Gym routine</div>
+          </article>
+
+          <article class="card quote">
+            <div class="quote__stars" aria-label="5 star review">★★★★★</div>
+            <p class="quote__text">“Perfect when I want lemon water but hate prepping it.”</p>
+            <div class="quote__name">— Daily hydration</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">FAQ</h2>
+          <p class="section-subtitle">Answer objections before they leave.</p>
+        </div>
+
+        <div class="accordion" data-accordion>
+          <div class="acc-item">
+            <button class="acc-btn" type="button" aria-expanded="false">
+              How many cubes per bottle?
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc-panel">
+              <p>Start with 1 cube per glass. Use 2 cubes for stronger flavor.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-btn" type="button" aria-expanded="false">
+              How long do they last in the freezer?
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc-panel">
+              <p>Add your real storage timeline here (example: “Best within 3 months”).</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-btn" type="button" aria-expanded="false">
+              How does shipping work?
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc-panel">
+              <p>Describe insulated packaging, cold packs, delivery regions, and timelines.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-btn" type="button" aria-expanded="false">
+              What are the ingredients?
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc-panel">
+              <p>List exactly what’s inside. Keep it short and truthful.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-btn" type="button" aria-expanded="false">
+              What if I don’t like it?
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc-panel">
+              <p>30-day satisfaction guarantee (adjust to your policy).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+      <div class="container final-cta__inner">
+        <div>
+          <h2 class="final-cta__title">Ready to upgrade your water?</h2>
+          <p class="final-cta__text">Pick a pack and you’re done. Drop. Melt. Drink.</p>
+        </div>
+
+        <a class="btn btn--primary btn--lg" href="#packs" data-scroll>Shop packs</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <div class="footer__brand">Lemon Ice Cubes</div>
+          <div class="footer__small">© <span id="year"></span> All rights reserved.</div>
+        </div>
+
+        <div class="footer__right">
+          <a class="footer__link" href="#faq" data-scroll>FAQ</a>
+          <a class="footer__link" href="#packs" data-scroll>Shop</a>
+          <a class="footer__link" href="#top" data-scroll>Back to top</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Sticky mobile CTA -->
+    <div class="sticky-buy" role="region" aria-label="Quick buy bar">
+      <a class="btn btn--primary btn--full" href="#packs" data-scroll>Shop packs</a>
+    </div>
+  </main>
+
+
+  <script>
+    (function () {
+  // Footer year
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('[data-scroll]').forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const href = el.getAttribute("href");
+      if (!href || !href.startsWith("#")) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", href);
+    });
+  });
+
+  // FAQ accordion (single open at a time)
+  const acc = document.querySelector("[data-accordion]");
+  if (acc) {
+    acc.querySelectorAll(".acc-item").forEach((item) => {
+      const btn = item.querySelector(".acc-btn");
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        // close others
+        acc.querySelectorAll(".acc-item.is-open").forEach((openItem) => {
+          if (openItem !== item) {
+            openItem.classList.remove("is-open");
+            const b = openItem.querySelector(".acc-btn");
+            if (b) b.setAttribute("aria-expanded", "false");
+          }
+        });
+
+        const isOpen = item.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
+  }
+
+  // Buy buttons placeholder behavior
+  document.querySelectorAll("[data-buy]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const pack = btn.closest("[data-pack]")?.getAttribute("data-pack");
+      // Replace this with your real checkout link or cart logic
+      alert(`Selected ${pack} Pack. Connect this button to your checkout.`);
+    });
+  });
+})();
+
+  </script>
+  <script src="/scripts/script.js"></script>
+</body>
+</html>
