@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — Panifit</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='15' y='15' width='70' height='70' rx='18' fill='%23FFD84D' opacity='0.9'/><rect x='25' y='25' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='3' opacity='0.5'/></svg>">
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav id="navbar" class="scrolled">
+    <a class="nav-logo" href="index.html">PANI<span>FIT</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Shop</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="success-page">
+    <div class="success-content">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+      <h1 class="success-title">Order Confirmed</h1>
+      <p class="success-sub" id="successMsg">
+        Thank you for your order! Your Panifit cubes are being prepared and will ship within 24 hours. Check your email for tracking details.
+      </p>
+      <div id="orderDetails" style="text-align:left; background:var(--dark); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:32px;"></div>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="products.html" class="btn-primary">
+          Order More <span class="btn-arrow">&rarr;</span>
+        </a>
+        <a href="index.html" class="btn-secondary">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Gather order info from URL params + localStorage
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('order_id');
+    const sessionId = params.get('session_id');
+
+    const shipping = JSON.parse(localStorage.getItem('panifit_shipping') || 'null');
+    const pending = JSON.parse(localStorage.getItem('panifit_pending_order') || 'null');
+
+    // Clear cart on successful payment
+    localStorage.setItem('panifit_cart', '[]');
+    updateCartCount();
+
+    const finalOrderId = orderId || (pending && pending.orderId) || 'PF-' + Date.now();
+    const total = pending ? pending.total : 0;
+
+    const detailsEl = document.getElementById('orderDetails');
+
+    if (shipping || orderId) {
+      const rows = [];
+
+      rows.push(`
+        <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border);">
+          <span style="color:var(--gray); font-size:13px;">Order ID</span>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:var(--yellow);">${finalOrderId}</span>
+        </div>
+      `);
+
+      if (shipping && shipping.email) {
+        rows.push(`
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border);">
+            <span style="color:var(--gray); font-size:13px;">Email</span>
+            <span style="font-size:13px;">${shipping.email}</span>
+          </div>
+        `);
+      }
+
+      if (shipping && shipping.city) {
+        rows.push(`
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border);">
+            <span style="color:var(--gray); font-size:13px;">Ships To</span>
+            <span style="font-size:13px;">${shipping.address || ''}, ${shipping.city}, ${shipping.state} ${shipping.zip}</span>
+          </div>
+        `);
+      }
+
+      if (total > 0) {
+        const finalShipping = total >= 30 ? 0 : 5.99;
+        const finalTotal = total + finalShipping;
+        rows.push(`
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--gray); font-size:13px;">Total Charged</span>
+            <span style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--yellow);">$${finalTotal.toFixed(2)}</span>
+          </div>
+        `);
+      }
+
+      detailsEl.innerHTML = rows.join('');
+
+      if (shipping && shipping.firstName) {
+        document.getElementById('successMsg').innerHTML =
+          `Thank you, <strong>${shipping.firstName}</strong>! Your Panifit cubes are being prepared and will ship within 24 hours. A confirmation email has been sent to <strong>${shipping.email || 'your email'}</strong>.`;
+      }
+    } else {
+      detailsEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between;">
+          <span style="color:var(--gray); font-size:13px;">Order ID</span>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:var(--yellow);">${finalOrderId}</span>
+        </div>
+      `;
+    }
+
+    // Cleanup localStorage
+    localStorage.removeItem('panifit_shipping');
+    localStorage.removeItem('panifit_pending_order');
+  </script>
+</body>
+</html>

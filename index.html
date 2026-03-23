@@ -1,497 +1,649 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Drop. Melt. Drink. | Lemon Ice Cubes</title>
-  <meta name="description" content="Frozen lemon hydration cubes that upgrade your water in seconds. Drop. Melt. Drink." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panifit — Drop. Stir. Hydrate.</title>
+  <meta name="description" content="Premium vitamin-powered frozen lemon cubes. Drop one in water for instant hydration with real lemon juice, electrolytes, and Vitamin C. Zero sugar." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='15' y='15' width='70' height='70' rx='18' fill='%23FFD84D' opacity='0.9'/><rect x='25' y='25' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='3' opacity='0.5'/></svg>">
 </head>
-
 <body>
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="container topbar__inner">
-      <a class="brand" href="#top" aria-label="Lemon Ice Cubes home">
-        <span class="brand__mark"></span>
-        <span class="brand__name">Lemon Ice Cubes</span>
-      </a>
 
-      <nav class="nav">
-        <a class="nav__link" href="#packs">Packs</a>
-        <a class="nav__link" href="#how">How it works</a>
-        <a class="nav__link" href="#faq">FAQ</a>
-        <a class="btn btn--small btn--primary" href="#packs">Shop</a>
-      </nav>
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay">
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="cart-close" onclick="toggleCart()" aria-label="Close cart">&times;</button>
+      </div>
+      <div id="cartItems"></div>
+      <div class="cart-footer" id="cartFooter"></div>
     </div>
-  </header>
+  </div>
 
-  <main id="top">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <div class="pill">Ships cold • Natural ingredients • 30-day guarantee</div>
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <span id="toastMsg">Added to cart</span>
+  </div>
 
-          <h1 class="hero__title">Drop. Melt. Drink.</h1>
-
-          <p class="hero__subtitle">
-            Frozen lemon cubes that turn plain water into crisp lemon water in seconds.
-            No cutting. No mess. Consistent taste every time.
-          </p>
-
-          <div class="hero__cta">
-            <a class="btn btn--primary btn--lg" href="#packs" data-scroll>Buy Lemon Ice Cubes</a>
-            <a class="btn btn--ghost btn--lg" href="#how" data-scroll>See how it works</a>
-          </div>
-
-          <div class="hero__trust">
-            <div class="trust__item">
-              <span class="trust__label">One cube</span>
-              <span class="trust__value">One glass</span>
-            </div>
-            <div class="trust__item">
-              <span class="trust__label">Prep time</span>
-              <span class="trust__value">0 minutes</span>
-            </div>
-            <div class="trust__item">
-              <span class="trust__label">Best for</span>
-              <span class="trust__value">Gym • Work • Home</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero__media">
-          <!-- Replace poster/src with your real assets -->
-          <div class="media-card">
-            <img class="media-card__video" src="assets/img/lemon-ice-granma.jpeg" alt="Granma">
-
-            <div class="media-card__overlay">
-              <div class="overlay__badge">Drop a cube into water</div>
-              <div class="overlay__hint">Loop video/GIF works great here</div>
-            </div>
-          </div>
-
-          <div class="media-note">
-            Tip: A 6–10s loop (cube toss → splash → quick stir → sip) boosts conversions.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PACKS (immediately under hero) -->
-    <section class="packs" id="packs">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Choose your pack</h2>
-          <p class="section-subtitle">One cube per drink. More cubes = better value.</p>
-        </div>
-
-        <div class="pack-grid">
-          <!-- 10 -->
-          <article class="card pack" data-pack="10">
-            <div class="pack__top">
-              <h3 class="pack__name">10 Pack</h3>
-              <div class="pack__tag">Try it</div>
-            </div>
-
-            <p class="pack__desc">Perfect first order. Clean lemon water on demand.</p>
-
-            <div class="pack__meta">
-              <div class="meta">
-                <span class="meta__label">Drinks</span>
-                <span class="meta__value">~10</span>
-              </div>
-              <div class="meta">
-                <span class="meta__label">Best for</span>
-                <span class="meta__value">Testing</span>
-              </div>
-              <div class="meta">
-                <span class="meta__label">Storage</span>
-                <span class="meta__value">Keep frozen</span>
-              </div>
-            </div>
-
-            <div class="pack__price">
-              <span class="price">$X</span>
-              <span class="per">($X / cube)</span>
-            </div>
-
-            <button class="btn btn--primary btn--full" type="button" data-buy>
-              Buy 10 Pack
-            </button>
-
-            <div class="pack__fineprint">Ships cold. 30-day guarantee.</div>
-          </article>
-
-          <!-- 20 (Most Popular) -->
-          <article class="card pack pack--featured" data-pack="20">
-            <div class="pack__badge">Most Popular</div>
-
-            <div class="pack__top">
-              <h3 class="pack__name">20 Pack</h3>
-              <div class="pack__tag">Best balance</div>
-            </div>
-
-            <p class="pack__desc">The daily driver. Great value and lasts longer.</p>
-
-            <div class="pack__meta">
-              <div class="meta">
-                <span class="meta__label">Drinks</span>
-                <span class="meta__value">~20</span>
-              </div>
-              <div class="meta">
-                <span class="meta__label">Savings</span>
-                <span class="meta__value">Save vs 10</span>
-              </div>
-              <div class="meta">
-                <span class="meta__label">Best for</span>
-                <span class="meta__value">Routine</span>
-              </div>
-            </div>
-
-            <div class="pack__price">
-              <span class="price">$Y</span>
-              <span class="per">($Y / cube)</span>
-            </div>
-
-            <button class="btn btn--primary btn--full" type="button" data-buy>
-              Buy 20 Pack
-            </button>
-
-            <div class="pack__fineprint">Ships cold. 30-day guarantee.</div>
-          </article>
-
-          <!-- 30 -->
-          <article class="card pack" data-pack="30">
-            <div class="pack__top">
-              <h3 class="pack__name">30 Pack</h3>
-              <div class="pack__tag">Best value</div>
-            </div>
-
-            <p class="pack__desc">For daily lemon water lovers. Lowest price per cube.</p>
-
-            <div class="pack__meta">
-              <div class="meta">
-                <span class="meta__label">Drinks</span>
-                <span class="meta__value">~30</span>
-              </div>
-              <div class="meta">
-                <span class="meta__label">Best for</span>
-                <span class="meta__value">Every day</span>
-              </div>
-              <div class="meta">
-                <span class="meta__label">Bonus</span>
-                <span class="meta__value">Free ship (opt)</span>
-              </div>
-            </div>
-
-            <div class="pack__price">
-              <span class="price">$Z</span>
-              <span class="per">($Z / cube)</span>
-            </div>
-
-            <button class="btn btn--primary btn--full" type="button" data-buy>
-              Buy 30 Pack
-            </button>
-
-            <div class="pack__fineprint">Ships cold. 30-day guarantee.</div>
-          </article>
-        </div>
-
-        <div class="packs__note">
-          Works in still water, sparkling water, tea, smoothies, and cocktails.
-          Want it stronger? Use 2 cubes.
-        </div>
-      </div>
-    </section>
-
-    <!-- BENEFITS -->
-    <section class="benefits" id="benefits">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Why Lemon Ice Cubes?</h2>
-          <p class="section-subtitle">Simple, clean, and consistent — built for daily hydration.</p>
-        </div>
-
-        <div class="benefit-grid">
-          <div class="card benefit">
-            <h3 class="benefit__title">Instant flavor</h3>
-            <p class="benefit__text">Upgrade your water in seconds. No waiting, no prep.</p>
-          </div>
-
-          <div class="card benefit">
-            <h3 class="benefit__title">No mess</h3>
-            <p class="benefit__text">No cutting, squeezing, seeds, or sticky counters.</p>
-          </div>
-
-          <div class="card benefit">
-            <h3 class="benefit__title">Consistent taste</h3>
-            <p class="benefit__text">Portion-perfect cubes for the same flavor every time.</p>
-          </div>
-
-          <div class="card benefit">
-            <h3 class="benefit__title">More water, naturally</h3>
-            <p class="benefit__text">When it tastes better, you drink more — without sugar.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="how" id="how">
-      <div class="container how__grid">
-        <div>
-          <div class="section-head section-head--tight">
-            <h2 class="section-title">How it works</h2>
-            <p class="section-subtitle">Three steps. Ten seconds. Done.</p>
-          </div>
-
-          <ol class="steps">
-            <li class="step">
-              <div class="step__num">1</div>
-              <div class="step__body">
-                <div class="step__title">Drop</div>
-                <div class="step__text">Add 1 cube to your glass or bottle.</div>
-              </div>
-            </li>
-
-            <li class="step">
-              <div class="step__num">2</div>
-              <div class="step__body">
-                <div class="step__title">Fill</div>
-                <div class="step__text">Pour in cold water (still or sparkling).</div>
-              </div>
-            </li>
-
-            <li class="step">
-              <div class="step__num">3</div>
-              <div class="step__body">
-                <div class="step__title">Melt & drink</div>
-                <div class="step__text">Stir or shake. Sip immediately.</div>
-              </div>
-            </li>
-          </ol>
-
-          <div class="how__cta">
-            <a class="btn btn--primary btn--lg" href="#packs" data-scroll>Shop packs</a>
-          </div>
-        </div>
-
-        <div class="how__media">
-            <div class="card how-card">
-                <div class="how-card__label">Drop. Melt. Drink.</div>
-
-                <div class="how-card__placeholder" style="padding:0; overflow:hidden; border-style:solid;">
-                <img 
-                    src="assets/img/example.png" 
-                    alt="Lemon ice cubes product shot"
-                    style="width:100%; height:100%; object-fit:cover; display:block;"
-                >
-                </div>
-
-                <div style="margin-top:12px; font-size:13px; color:rgba(255,255,255,0.7); font-weight:650;">
-                <strong>Drop:</strong> Add 1 cube • 
-                <strong>Melt:</strong> Dissolves fast • 
-                <strong>Drink:</strong> Refresh & enjoy
-                </div>
-            </div>
-        </div>
-
-
-
-          <div class="how__fine">
-            Keep frozen. Use anytime. Great for gym bottles and work desks.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOCIAL PROOF -->
-    <section class="proof" id="proof">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">People are drinking more water</h2>
-          <p class="section-subtitle">Short reviews work best. Keep them real.</p>
-        </div>
-
-        <div class="proof-grid">
-          <article class="card quote">
-            <div class="quote__stars" aria-label="5 star review">★★★★★</div>
-            <p class="quote__text">“I actually finish my bottle now. Clean taste.”</p>
-            <div class="quote__name">— First customer</div>
-          </article>
-
-          <article class="card quote">
-            <div class="quote__stars" aria-label="5 star review">★★★★★</div>
-            <p class="quote__text">“No mess. Just drop a cube and go.”</p>
-            <div class="quote__name">— Gym routine</div>
-          </article>
-
-          <article class="card quote">
-            <div class="quote__stars" aria-label="5 star review">★★★★★</div>
-            <p class="quote__text">“Perfect when I want lemon water but hate prepping it.”</p>
-            <div class="quote__name">— Daily hydration</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq" id="faq">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">FAQ</h2>
-          <p class="section-subtitle">Answer objections before they leave.</p>
-        </div>
-
-        <div class="accordion" data-accordion>
-          <div class="acc-item">
-            <button class="acc-btn" type="button" aria-expanded="false">
-              How many cubes per bottle?
-              <span class="acc-icon" aria-hidden="true"></span>
-            </button>
-            <div class="acc-panel">
-              <p>Start with 1 cube per glass. Use 2 cubes for stronger flavor.</p>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-btn" type="button" aria-expanded="false">
-              How long do they last in the freezer?
-              <span class="acc-icon" aria-hidden="true"></span>
-            </button>
-            <div class="acc-panel">
-              <p>Add your real storage timeline here (example: “Best within 3 months”).</p>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-btn" type="button" aria-expanded="false">
-              How does shipping work?
-              <span class="acc-icon" aria-hidden="true"></span>
-            </button>
-            <div class="acc-panel">
-              <p>Describe insulated packaging, cold packs, delivery regions, and timelines.</p>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-btn" type="button" aria-expanded="false">
-              What are the ingredients?
-              <span class="acc-icon" aria-hidden="true"></span>
-            </button>
-            <div class="acc-panel">
-              <p>List exactly what’s inside. Keep it short and truthful.</p>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-btn" type="button" aria-expanded="false">
-              What if I don’t like it?
-              <span class="acc-icon" aria-hidden="true"></span>
-            </button>
-            <div class="acc-panel">
-              <p>30-day satisfaction guarantee (adjust to your policy).</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section class="final-cta">
-      <div class="container final-cta__inner">
-        <div>
-          <h2 class="final-cta__title">Ready to upgrade your water?</h2>
-          <p class="final-cta__text">Pick a pack and you’re done. Drop. Melt. Drink.</p>
-        </div>
-
-        <a class="btn btn--primary btn--lg" href="#packs" data-scroll>Shop packs</a>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container footer__inner">
-        <div class="footer__left">
-          <div class="footer__brand">Lemon Ice Cubes</div>
-          <div class="footer__small">© <span id="year"></span> All rights reserved.</div>
-        </div>
-
-        <div class="footer__right">
-          <a class="footer__link" href="#faq" data-scroll>FAQ</a>
-          <a class="footer__link" href="#packs" data-scroll>Shop</a>
-          <a class="footer__link" href="#top" data-scroll>Back to top</a>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Sticky mobile CTA -->
-    <div class="sticky-buy" role="region" aria-label="Quick buy bar">
-      <a class="btn btn--primary btn--full" href="#packs" data-scroll>Shop packs</a>
+  <!-- NAV -->
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html">PANI<span>FIT</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#lifestyle">Who It's For</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="products.html" class="nav-cta">Shop Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cart-btn" onclick="toggleCart()" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        <span class="nav-cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </main>
+  </nav>
 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
 
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="pulse-dot"></span>
+        New: Vitamin-Powered Hydration
+      </div>
+      <h1>
+        DROP.<br>
+        <em>STIR.</em><br>
+        <span class="outline">HYDRATE.</span>
+      </h1>
+      <p class="hero-sub">
+        Frozen lemon concentrate cubes that instantly transform plain water into a refreshing, vitamin-powered drink. No powders. No sugar. Just drop & go.
+      </p>
+      <div class="hero-actions">
+        <a href="products.html" class="btn-primary">
+          Shop Panifit Cubes <span class="btn-arrow">&rarr;</span>
+        </a>
+        <a href="#how-it-works" class="btn-secondary">
+          See how it works <span class="btn-arrow">&darr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- HERO 3D SCENE (RIGHT SIDE) -->
+    <div class="hero-scene">
+      <!-- Glow rings -->
+      <div class="scene-glow"></div>
+      <div class="scene-glow-ring"></div>
+      <div class="scene-glow-ring"></div>
+      <div class="scene-glow-ring"></div>
+
+      <!-- 3D Cube -->
+      <div class="cube-anchor">
+        <div class="cube-3d">
+          <div class="cube-face face-front"></div>
+          <div class="cube-face face-back"></div>
+          <div class="cube-face face-right"></div>
+          <div class="cube-face face-left"></div>
+          <div class="cube-face face-top"></div>
+          <div class="cube-face face-bottom"></div>
+        </div>
+        <!-- Lemon slice inside the cube -->
+        <div class="cube-inner-lemon">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer rind -->
+            <circle cx="60" cy="60" r="52" fill="#e6c030" opacity="0.15"/>
+            <circle cx="60" cy="60" r="52" stroke="#FFD84D" stroke-width="2" opacity="0.8"/>
+            <!-- White pith ring -->
+            <circle cx="60" cy="60" r="44" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
+            <!-- Inner flesh -->
+            <circle cx="60" cy="60" r="42" fill="rgba(255,216,77,0.08)"/>
+            <!-- Segments (the juice sections) -->
+            <line x1="60" y1="18" x2="60" y2="102" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
+            <line x1="18" y1="60" x2="102" y2="60" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
+            <line x1="30" y1="30" x2="90" y2="90" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
+            <line x1="90" y1="30" x2="30" y2="90" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
+            <!-- Segment membrane curves -->
+            <path d="M60 60 Q48 35 60 18" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q72 35 60 18" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q85 48 102 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q85 72 102 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q72 85 60 102" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q48 85 60 102" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q35 72 18 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <path d="M60 60 Q35 48 18 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+            <!-- Juice vesicle dots in segments -->
+            <circle cx="54" cy="38" r="1.5" fill="#FFD84D" opacity="0.4"/>
+            <circle cx="66" cy="35" r="1" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="80" cy="54" r="1.5" fill="#FFD84D" opacity="0.35"/>
+            <circle cx="82" cy="66" r="1" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="66" cy="82" r="1.5" fill="#FFD84D" opacity="0.4"/>
+            <circle cx="54" cy="84" r="1" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="38" cy="66" r="1.5" fill="#FFD84D" opacity="0.35"/>
+            <circle cx="36" cy="54" r="1" fill="#FFD84D" opacity="0.3"/>
+            <!-- Center pip -->
+            <circle cx="60" cy="60" r="5" fill="#FFD84D" opacity="0.2"/>
+            <circle cx="60" cy="60" r="2.5" fill="#FFD84D" opacity="0.35"/>
+            <!-- Glow highlight -->
+            <circle cx="46" cy="40" r="18" fill="rgba(255,255,255,0.06)"/>
+          </svg>
+        </div>
+
+        <!-- Condensation water drops on cube faces -->
+        <div class="cube-droplets">
+          <div class="cube-drop cd-1"></div>
+          <div class="cube-drop cd-2"></div>
+          <div class="cube-drop cd-3"></div>
+          <div class="cube-drop cd-4"></div>
+          <div class="cube-drop cd-5"></div>
+          <div class="cube-drop cd-6"></div>
+          <div class="cube-drop cd-7"></div>
+        </div>
+
+        <!-- Frost shimmer on edges -->
+        <div class="cube-frost frost-top"></div>
+        <div class="cube-frost frost-right"></div>
+      </div>
+
+      <!-- Floating mini cubes with lemon tint -->
+      <div class="float-cube fc-1">
+        <div class="fc-inner-slice"></div>
+      </div>
+      <div class="float-cube fc-2">
+        <div class="fc-inner-slice"></div>
+      </div>
+      <div class="float-cube fc-3"></div>
+      <div class="float-cube fc-4"></div>
+
+      <!-- Dripping lemon juice -->
+      <div class="juice-drips">
+        <div class="juice-drip jd-1"></div>
+        <div class="juice-drip jd-2"></div>
+        <div class="juice-drip jd-3"></div>
+      </div>
+
+      <!-- Particles -->
+      <div class="scene-particles">
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+        <div class="s-particle"></div>
+      </div>
+
+      <!-- Scan lines -->
+      <div class="scene-scanline"></div>
+      <div class="scene-scanline"></div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num" data-count="0">0g</div>
+        <div class="stat-label">Sugar</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Natural</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5sec</div>
+        <div class="stat-label">To Dissolve</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3k+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track" id="marquee">
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg> STAY HYDRATED</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/></svg> REAL LEMON <span>JUICE</span></div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg> NATURAL ELECTROLYTES</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ZERO SUGAR</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h0m6 0h0m-6 6h6"/></svg> FROZEN FRESH</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l2.5 2.5L16 9"/></svg> NO ARTIFICIAL INGREDIENTS</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VITAMIN C BOOST</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> PORTABLE & CONVENIENT</div>
+      <!-- duplicate for seamless loop -->
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg> STAY HYDRATED</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/></svg> REAL LEMON <span>JUICE</span></div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg> NATURAL ELECTROLYTES</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ZERO SUGAR</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h0m6 0h0m-6 6h6"/></svg> FROZEN FRESH</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l2.5 2.5L16 9"/></svg> NO ARTIFICIAL INGREDIENTS</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VITAMIN C BOOST</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> PORTABLE & CONVENIENT</div>
+    </div>
+  </div>
+
+  <!-- PRODUCT EXPLANATION -->
+  <section id="about">
+    <div class="explain-grid">
+      <div class="explain-visual">
+        <div class="explain-cube-scene">
+          <div class="explain-cube">
+            <svg viewBox="0 0 60 60" fill="none">
+              <ellipse cx="30" cy="30" rx="20" ry="24" stroke="currentColor" stroke-width="2"/>
+              <path d="M30 6c0 0 7 10 7 24s-7 24-7 24" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+              <path d="M30 6c0 0-7 10-7 24s7 24 7 24" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+              <circle cx="30" cy="30" r="4" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="explain-drops">
+          <div class="drop"></div>
+          <div class="drop"></div>
+          <div class="drop"></div>
+        </div>
+        <div class="explain-label">100% Natural</div>
+      </div>
+
+      <div>
+        <p class="section-tag">// What Is It</p>
+        <h2 class="section-title">The Smartest Way To Drink Water</h2>
+        <p class="section-sub">
+          Panifit cubes are frozen concentrate cubes made from real lemon juice, packed with vitamins and natural electrolytes. One cube, one great drink.
+        </p>
+        <ul class="explain-features">
+          <li>
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/><path d="M12 3c0 0-3 4-3 9s3 9 3 9"/></svg>
+            </div>
+            <div>
+              <div class="feat-title">Real Lemon Juice</div>
+              <div class="feat-desc">Made from 100% cold-pressed lemon concentrate. No artificial flavoring, ever.</div>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+            </div>
+            <div>
+              <div class="feat-title">Natural Electrolytes</div>
+              <div class="feat-desc">Sodium, potassium and magnesium from natural sources for genuine hydration.</div>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="feat-title">Vitamin C Boost</div>
+              <div class="feat-desc">Each cube delivers your daily dose of immune-supporting Vitamin C.</div>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+            </div>
+            <div>
+              <div class="feat-title">Zero Sugar, Zero Junk</div>
+              <div class="feat-desc">No sugar, no artificial sweeteners, no preservatives. Clean label guaranteed.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how-it-works">
+    <p class="section-tag">// How It Works</p>
+    <h2 class="section-title">Three Steps. That's It.</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <rect x="10" y="10" width="28" height="28" rx="7"/>
+            <path d="M24 6v8m-10 10H6m18 18v-8m18-10h-8" opacity="0.4"/>
+            <path d="M24 18v12M18 24h12" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="step-title">Drop The Cube</div>
+        <p class="step-desc">Take one Panifit cube from your pack and drop it into any glass or bottle of water. Works with cold, warm, or sparkling water.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="24" cy="24" r="18"/>
+            <circle cx="24" cy="24" r="8" opacity="0.5"/>
+            <circle cx="24" cy="24" r="2" fill="currentColor"/>
+            <path d="M24 6v4m0 28v4M42 24h-4M10 24H6" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="step-title">Watch It Dissolve</div>
+        <p class="step-desc">The cube dissolves in seconds, releasing a bright burst of lemon flavor, vitamins, and electrolytes straight into your water.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M16 42h16"/>
+            <path d="M12 6h24l-4 24a4 4 0 01-4 3.46h-8A4 4 0 0116 30L12 6z"/>
+            <path d="M18 16c2-2 6-2 8 0s6 2 8 0" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="step-title">Enjoy & Hydrate</div>
+        <p class="step-desc">Sip your perfectly refreshing, vitamin-powered lemon drink. Hydration has never been this clean, simple, or delicious.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <p class="section-tag">// Why Panifit</p>
+    <h2 class="section-title">Built For Your Body</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-badge">SCIENCE-BACKED</div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 4c-2 4-8 8-8 16a8 8 0 0016 0c0-8-6-12-8-16z"/>
+            <path d="M16 24c2 2 6 2 8 0" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Deep Hydration</div>
+        <p class="benefit-desc">Electrolytes help your body absorb and retain water more effectively than plain water. Stay hydrated longer with every cube.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-badge">IMMUNE BOOST</div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 4l4 8h8l-6 5 2 8-8-5-8 5 2-8-6-5h8l4-8z"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Vitamin C Power</div>
+        <p class="benefit-desc">Each cube packs your recommended daily Vitamin C, supporting your immune system and helping fight oxidative stress.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-badge">CLEAN LABEL</div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6c-4 4-8 2-12 4 0 8 2 16 12 24 10-8 12-16 12-24-4-2-8 0-12-4z"/>
+            <path d="M14 20l4 4 8-8" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Zero Junk</div>
+        <p class="benefit-desc">No sugar, no artificial sweeteners, no fillers. Just clean, real ingredients you can actually read and pronounce.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-badge">LIFESTYLE</div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="8" y="12" width="24" height="20" rx="4"/>
+            <path d="M14 12V8a6 6 0 0112 0v4"/>
+            <circle cx="20" cy="24" r="3" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Anywhere, Anytime</div>
+        <p class="benefit-desc">Portable cubes fit any lifestyle. Gym bag, desk drawer, backpack -- always have your hydration upgrade within reach.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE -->
+  <section class="lifestyle-section" id="lifestyle">
+    <p class="section-tag">// Who It's For</p>
+    <h2 class="section-title">Made For People<br><em style="color:var(--yellow);font-style:normal;">Who Move</em></h2>
+    <p class="section-sub" style="margin: 0 auto; text-align: center;">
+      Whether you're crushing a workout or powering through a long workday, Panifit cubes keep you hydrated and dialed in.
+    </p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 30h6v-10h8v10h6"/><path d="M10 20l4-8h12l4 8" opacity="0.6"/></svg>
+        </div>
+        <div class="audience-label">Athletes</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="8" r="4"/><path d="M14 36l2-12-4-6h16l-4 6 2 12"/><path d="M12 18h16"/></svg>
+        </div>
+        <div class="audience-label">Runners</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 28h24v4H8z"/><path d="M10 28V16l10-8 10 8v12"/><circle cx="20" cy="22" r="3" opacity="0.5"/></svg>
+        </div>
+        <div class="audience-label">Students</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="12" width="28" height="20" rx="3"/><path d="M14 12V8h12v4"/><path d="M6 20h28" opacity="0.4"/></svg>
+        </div>
+        <div class="audience-label">Office Workers</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 32l16-24 16 24H4z"/><path d="M20 8l4 6" opacity="0.4"/><path d="M12 24h16" opacity="0.3"/></svg>
+        </div>
+        <div class="audience-label">Travelers</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="20" r="14"/><path d="M20 10v10l6 6"/></svg>
+        </div>
+        <div class="audience-label">Wellness</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="30" r="8"/><circle cx="20" cy="12" r="4" opacity="0.5"/><path d="M20 16v6"/></svg>
+        </div>
+        <div class="audience-label">Cyclists</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6v8m0 12v8M6 20h8m12 0h8"/><path d="M11 11l5 5m8 8l5 5M29 11l-5 5m-8 8l-5 5" opacity="0.5"/></svg>
+        </div>
+        <div class="audience-label">Health-Conscious</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section" id="testimonials">
+    <p class="section-tag">// Real Reviews</p>
+    <h2 class="section-title">People Are Talking</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testimonial-text">"I replaced my morning energy drink with Panifit and I've never felt better. Clean, refreshing, and I love knowing exactly what I'm putting in my body."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">J</div>
+          <div>
+            <div class="author-name">Jake M.</div>
+            <div class="author-role">CrossFit Athlete</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testimonial-text">"I keep a pack in my desk drawer and one in my gym bag. It's genuinely changed how much water I drink. Finally something that makes hydration exciting."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div>
+            <div class="author-name">Sofia R.</div>
+            <div class="author-role">Marketing Manager</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testimonial-text">"As a runner, hydration is everything. These cubes are a game-changer -- no sticky syrups, no gritty powders. Just pop one in and go."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">D</div>
+          <div>
+            <div class="author-name">Daniel T.</div>
+            <div class="author-role">Marathon Runner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <p class="section-tag">// Common Questions</p>
+    <h2 class="section-title">FAQ</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What exactly is a Panifit cube?
+          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><p>A Panifit cube is a frozen concentrate cube made from real cold-pressed lemon juice, natural electrolytes (sodium, potassium, magnesium), and Vitamin C. Drop one in water and it dissolves in seconds into a refreshing, vitamin-powered lemon drink.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How many cubes come in each pack?
+          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><p>We offer multiple pack sizes: Starter (30 cubes), Value (60 cubes), Pro (90 cubes), and Mega (120 cubes). Subscription plans are also available with 15% savings.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is there any sugar or artificial ingredients?
+          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><p>Absolutely zero. No sugar, no artificial sweeteners, no preservatives, no colors. Just real lemon juice, natural electrolytes, Vitamin C, and purified water. That's it.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do you ship frozen products?
+          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><p>All orders ship in insulated packaging with dry ice to keep cubes frozen during transit. We ship same-day for orders placed before 2pm EST, with 2-5 business day delivery. Free shipping on orders over $30.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What's the shelf life?
+          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><p>Kept frozen, Panifit cubes last up to 12 months. Once you take one out, just drop it in water within a few minutes for the best experience.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="shop">
+    <div style="position:relative;z-index:2;">
+      <p class="section-tag">// Get Started Today</p>
+      <h2 class="section-title">Upgrade<br><em>Your Water.</em></h2>
+      <p class="section-sub">
+        Try Panifit cubes today. Your body will thank you. Free shipping on orders over $30.
+      </p>
+      <div class="cta-actions">
+        <a href="products.html" class="btn-primary" style="font-size:17px;padding:20px 48px;">
+          Shop Now -- From $14.99 <span class="btn-arrow">&rarr;</span>
+        </a>
+        <a href="#benefits" class="btn-secondary">Learn More &uarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <a class="nav-logo" href="index.html" style="display:block;margin-bottom:16px;">PANI<span style="color:var(--white)">FIT</span></a>
+        <p class="footer-brand-desc">The smartest, cleanest way to turn plain water into a vitamin-powered lemon drink. No sugar. No junk. Just drop and go.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="products.html">Shop Now</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#">Ingredients</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Support</div>
+        <ul class="footer-links">
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Subscribe & Save</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Panifit. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="X/Twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.43v-7.15a8.16 8.16 0 005.58 2.2V11.2a4.85 4.85 0 01-2.68-.81 4.83 4.83 0 01-1.32-3.7z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
   <script>
-    (function () {
-  // Footer year
-  const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
-
-  // Smooth scroll for internal links
-  document.querySelectorAll('[data-scroll]').forEach((el) => {
-    el.addEventListener("click", (e) => {
-      const href = el.getAttribute("href");
-      if (!href || !href.startsWith("#")) return;
-
-      const target = document.querySelector(href);
-      if (!target) return;
-
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", href);
-    });
-  });
-
-  // FAQ accordion (single open at a time)
-  const acc = document.querySelector("[data-accordion]");
-  if (acc) {
-    acc.querySelectorAll(".acc-item").forEach((item) => {
-      const btn = item.querySelector(".acc-btn");
-      if (!btn) return;
-
-      btn.addEventListener("click", () => {
-        // close others
-        acc.querySelectorAll(".acc-item.is-open").forEach((openItem) => {
-          if (openItem !== item) {
-            openItem.classList.remove("is-open");
-            const b = openItem.querySelector(".acc-btn");
-            if (b) b.setAttribute("aria-expanded", "false");
-          }
-        });
-
-        const isOpen = item.classList.toggle("is-open");
-        btn.setAttribute("aria-expanded", String(isOpen));
-      });
-    });
-  }
-
-  // Buy buttons placeholder behavior
-  document.querySelectorAll("[data-buy]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const pack = btn.closest("[data-pack]")?.getAttribute("data-pack");
-      // Replace this with your real checkout link or cart logic
-      alert(`Selected ${pack} Pack. Connect this button to your checkout.`);
-    });
-  });
-})();
-
+    // FAQ toggle
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    }
   </script>
-  <script src="/scripts/script.js"></script>
 </body>
 </html>
