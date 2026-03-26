@@ -14,13 +14,22 @@ if (!$orderId) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'update_status') {
         $newStatus = $_POST['status'] ?? '';
-        $allowed = ['pending','paid','shipped','delivered','canceled'];
+        $allowed = allowedOrderStatuses();
         if (in_array($newStatus, $allowed)) {
             $stmt = $db->prepare("UPDATE orders SET status = :status, updated_at = datetime('now') WHERE order_id = :oid");
             $stmt->bindValue(':status', $newStatus);
             $stmt->bindValue(':oid', $orderId);
             $stmt->execute();
         }
+    }
+    if ($_POST['action'] === 'send_status_email') {
+        $currentOrder = fetchOrderById($db, $orderId);
+        $sent = false;
+        if ($currentOrder) {
+            $sent = sendStatusUpdateEmail($db, $currentOrder);
+        }
+        header('Location: order.php?id=' . urlencode($orderId) . '&updated=1&email=' . ($sent ? 'sent' : 'failed'));
+        exit;
     }
     if ($_POST['action'] === 'update_notes') {
         $notes = $_POST['notes'] ?? '';
@@ -52,6 +61,7 @@ if (!$order) {
 
 $cart = json_decode($order['cart_json'], true) ?: [];
 $updated = isset($_GET['updated']);
+$emailStatus = $_GET['email'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,6 +113,8 @@ $updated = isset($_GET['updated']);
     .status-select:focus { border-color:var(--yellow); }
     .save-btn { padding:10px 24px; background:var(--yellow); color:var(--black); border:none; border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; transition:all 0.2s; }
     .save-btn:hover { transform:translateY(-1px); box-shadow:0 4px 20px rgba(255,216,77,0.3); }
+    .ghost-btn { padding:10px 20px; background:transparent; color:var(--white); border:1px solid var(--border); border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; transition:all 0.2s; }
+    .ghost-btn:hover { border-color:rgba(255,216,77,0.3); color:var(--yellow); }
     .delete-btn { padding:10px 24px; background:transparent; color:#ff5555; border:1px solid rgba(255,85,85,0.3); border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; transition:all 0.2s; }
     .delete-btn:hover { background:rgba(255,85,85,0.1); }
 
@@ -110,6 +122,7 @@ $updated = isset($_GET['updated']);
     .notes-area:focus { border-color:var(--yellow); }
 
     .toast { position:fixed; top:80px; right:32px; background:var(--dark2); border:1px solid rgba(124,235,111,0.3); color:var(--green); padding:14px 20px; border-radius:12px; font-size:13px; font-weight:600; animation:slideIn 0.3s ease; z-index:200; }
+    .status-helper { margin-top:14px; font-size:12px; color:var(--gray); line-height:1.6; }
     @keyframes slideIn { from{transform:translateX(100px);opacity:0;} to{transform:translateX(0);opacity:1;} }
 
     .total-row .detail-value { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--yellow); }
@@ -135,7 +148,7 @@ $updated = isset($_GET['updated']);
   </div>
 
   <?php if ($updated): ?>
-    <div class="toast">Order updated successfully</div>
+    <div class="toast"><?= $emailStatus === 'sent' ? 'Status email sent to customer' : ($emailStatus === 'failed' ? 'Email could not be sent from server' : 'Order updated successfully') ?></div>
     <script>setTimeout(()=>document.querySelector('.toast').style.display='none',3000);</script>
   <?php endif; ?>
 
@@ -159,12 +172,17 @@ $updated = isset($_GET['updated']);
       <form method="POST" class="status-form">
         <input type="hidden" name="action" value="update_status" />
         <select name="status" class="status-select">
-          <?php foreach (['pending','paid','shipped','delivered','canceled'] as $s): ?>
+          <?php foreach (allowedOrderStatuses() as $s): ?>
             <option value="<?= $s ?>" <?= $order['status']===$s?'selected':'' ?>><?= ucfirst($s) ?></option>
           <?php endforeach; ?>
         </select>
         <button type="submit" class="save-btn">Update Status</button>
       </form>
+      <form method="POST" class="status-form" style="margin-top:12px;">
+        <input type="hidden" name="action" value="send_status_email" />
+        <button type="submit" class="ghost-btn">Send Current Status Email</button>
+      </form>
+      <p class="status-helper">Prvo promijeni status, zatim klikni dugme za slanje da customer dobije lijepo formatiran email update.</p>
     </div>
 
     <!-- CUSTOMER INFO -->
@@ -177,6 +195,10 @@ $updated = isset($_GET['updated']);
       <div class="detail-row">
         <span class="detail-label">Email</span>
         <span class="detail-value"><a href="mailto:<?= e($order['email']) ?>" style="color:var(--yellow);text-decoration:none;"><?= e($order['email']) ?></a></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Last Email</span>
+        <span class="detail-value"><?= e(($order['last_email_type'] ?: 'none')) ?><?= $order['last_email_sent_at'] ? ' · ' . e(formatDate($order['last_email_sent_at'])) : '' ?></span>
       </div>
       <div class="detail-row">
         <span class="detail-label">Phone</span>

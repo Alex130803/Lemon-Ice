@@ -1,51 +1,22 @@
 /**
  * Panifit — Shared Application JavaScript
- * Cart system, navigation, cursor, and utilities
+ * Cart system, navigation, dark mode, and utilities
  */
 
-// ===== CUSTOM CURSOR =====
-(function initCursor() {
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  if (!cursor || !ring) return;
+// ===== DARK MODE =====
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('panifit_theme', next);
+}
 
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-  });
-
-  function animate() {
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.15;
-    ry += (my - ry) * 0.15;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animate);
+// Apply saved theme on load
+(function initTheme() {
+  const saved = localStorage.getItem('panifit_theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
   }
-  animate();
-
-  function bindHoverElements() {
-    document.querySelectorAll('a, button, .audience-card, .benefit-card, .step, .testimonial, .product-card, .thumb, .pack-option, .filter-btn, .faq-question').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        ring.style.width = '60px';
-        ring.style.height = '60px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '36px';
-        ring.style.height = '36px';
-      });
-    });
-  }
-  bindHoverElements();
-  // Re-bind after dynamic content changes
-  window.rebindCursor = bindHoverElements;
 })();
 
 // ===== NAVBAR =====
@@ -66,7 +37,7 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 });
 
-// ===== SCROLL REVEAL (for index.html) =====
+// ===== SCROLL REVEAL =====
 (function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -105,7 +76,6 @@ function saveCart(cart) {
 
 function addToCart(item) {
   const cart = getCart();
-  // Check if same item exists, increase qty
   const existing = cart.find(i => i.id === item.id);
   if (existing) {
     existing.qty += item.qty;
@@ -138,7 +108,6 @@ function toggleCart() {
   if (overlay) overlay.classList.toggle('open');
 }
 
-// Close cart when clicking overlay background
 document.addEventListener('click', (e) => {
   if (e.target && e.target.id === 'cartOverlay') {
     toggleCart();
@@ -153,17 +122,7 @@ function renderCartDrawer() {
   const cart = getCart();
 
   if (cart.length === 0) {
-    itemsEl.innerHTML = `
-      <div class="cart-empty">
-        <div class="cart-empty-icon">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="24" cy="54" r="3"/><circle cx="48" cy="54" r="3"/>
-            <path d="M4 4h8l6 32h32l6-24H18"/>
-          </svg>
-        </div>
-        <p>Your cart is empty.<br><a href="products.html" style="color:var(--yellow);">Add something refreshing</a></p>
-      </div>
-    `;
+    itemsEl.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="24" cy="54" r="3"/><circle cx="48" cy="54" r="3"/><path d="M4 4h8l6 32h32l6-24H18"/></svg></div><p>Your cart is empty.<br><a href="products.html" style="color:var(--yellow-dark);">Add something refreshing</a></p></div>';
     if (footerEl) footerEl.innerHTML = '';
     return;
   }
@@ -194,6 +153,7 @@ function renderCartDrawer() {
         <span class="cart-subtotal-label">Subtotal</span>
         <span class="cart-subtotal-price">$${subtotal.toFixed(2)}</span>
       </div>
+      ${subtotal >= 30 ? '<div style="text-align:center;color:var(--green);font-size:12px;font-weight:600;margin-top:8px;">You qualify for FREE shipping!</div>' : '<div style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:8px;">Add $' + (30 - subtotal).toFixed(2) + ' more for free shipping</div>'}
       <a href="checkout.html" class="cart-checkout-btn">
         Checkout <span style="font-family:'DM Sans',sans-serif;font-size:14px;letter-spacing:0;">&rarr;</span>
       </a>
@@ -203,8 +163,6 @@ function renderCartDrawer() {
       </div>
     `;
   }
-
-  if (window.rebindCursor) window.rebindCursor();
 }
 
 

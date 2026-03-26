@@ -10,10 +10,6 @@
 </head>
 <body>
 
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
   <!-- CART DRAWER -->
   <div class="cart-overlay" id="cartOverlay">
     <div class="cart-drawer" id="cartDrawer">
@@ -44,10 +40,17 @@
       <li><a href="products.html" class="nav-cta">Shop Now</a></li>
     </ul>
     <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
       <button class="nav-cart-btn" onclick="toggleCart()" aria-label="Open cart">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
         <span class="nav-cart-count" id="cartCount">0</span>
       </button>
+      <a href="account/login.php" class="nav-cart-btn" aria-label="Account" style="text-decoration:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
       <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -57,12 +60,11 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
 
     <div class="hero-content">
       <div class="hero-tag">
         <span class="pulse-dot"></span>
-        New: Vitamin-Powered Hydration
+        Everyday hydration, made simple
       </div>
       <h1>
         DROP.<br>
@@ -70,11 +72,11 @@
         <span class="outline">HYDRATE.</span>
       </h1>
       <p class="hero-sub">
-        Frozen lemon concentrate cubes that instantly transform plain water into a refreshing, vitamin-powered drink. No powders. No sugar. Just drop & go.
+        Panifit turns plain water into a fresh lemon drink with vitamins and electrolytes. Clean ingredients, no sugar, and free delivery once your cart passes $30.
       </p>
       <div class="hero-actions">
         <a href="products.html" class="btn-primary">
-          Shop Panifit Cubes <span class="btn-arrow">&rarr;</span>
+          Shop Panifit <span class="btn-arrow">&rarr;</span>
         </a>
         <a href="#how-it-works" class="btn-secondary">
           See how it works <span class="btn-arrow">&darr;</span>
@@ -82,118 +84,57 @@
       </div>
     </div>
 
-    <!-- HERO 3D SCENE (RIGHT SIDE) -->
+    <!-- HERO VISUAL (Clean lemon illustration) -->
     <div class="hero-scene">
-      <!-- Glow rings -->
-      <div class="scene-glow"></div>
-      <div class="scene-glow-ring"></div>
-      <div class="scene-glow-ring"></div>
-      <div class="scene-glow-ring"></div>
-
-      <!-- 3D Cube -->
-      <div class="cube-anchor">
-        <div class="cube-3d">
-          <div class="cube-face face-front"></div>
-          <div class="cube-face face-back"></div>
-          <div class="cube-face face-right"></div>
-          <div class="cube-face face-left"></div>
-          <div class="cube-face face-top"></div>
-          <div class="cube-face face-bottom"></div>
-        </div>
-        <!-- Lemon slice inside the cube -->
-        <div class="cube-inner-lemon">
-          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Outer rind -->
-            <circle cx="60" cy="60" r="52" fill="#e6c030" opacity="0.15"/>
-            <circle cx="60" cy="60" r="52" stroke="#FFD84D" stroke-width="2" opacity="0.8"/>
-            <!-- White pith ring -->
-            <circle cx="60" cy="60" r="44" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
-            <!-- Inner flesh -->
-            <circle cx="60" cy="60" r="42" fill="rgba(255,216,77,0.08)"/>
-            <!-- Segments (the juice sections) -->
-            <line x1="60" y1="18" x2="60" y2="102" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
-            <line x1="18" y1="60" x2="102" y2="60" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
-            <line x1="30" y1="30" x2="90" y2="90" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
-            <line x1="90" y1="30" x2="30" y2="90" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
-            <!-- Segment membrane curves -->
-            <path d="M60 60 Q48 35 60 18" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q72 35 60 18" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q85 48 102 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q85 72 102 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q72 85 60 102" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q48 85 60 102" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q35 72 18 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <path d="M60 60 Q35 48 18 60" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-            <!-- Juice vesicle dots in segments -->
-            <circle cx="54" cy="38" r="1.5" fill="#FFD84D" opacity="0.4"/>
-            <circle cx="66" cy="35" r="1" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="80" cy="54" r="1.5" fill="#FFD84D" opacity="0.35"/>
-            <circle cx="82" cy="66" r="1" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="66" cy="82" r="1.5" fill="#FFD84D" opacity="0.4"/>
-            <circle cx="54" cy="84" r="1" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="38" cy="66" r="1.5" fill="#FFD84D" opacity="0.35"/>
-            <circle cx="36" cy="54" r="1" fill="#FFD84D" opacity="0.3"/>
-            <!-- Center pip -->
-            <circle cx="60" cy="60" r="5" fill="#FFD84D" opacity="0.2"/>
-            <circle cx="60" cy="60" r="2.5" fill="#FFD84D" opacity="0.35"/>
-            <!-- Glow highlight -->
-            <circle cx="46" cy="40" r="18" fill="rgba(255,255,255,0.06)"/>
+      <div class="hero-lemon-visual">
+        <div class="hero-lemon-circle">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="rgba(255,216,77,0.15)"/>
+            <circle cx="100" cy="100" r="80" stroke="#FFD84D" stroke-width="2" opacity="0.6"/>
+            <circle cx="100" cy="100" r="65" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="62" fill="rgba(255,216,77,0.06)"/>
+            <line x1="100" y1="35" x2="100" y2="165" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
+            <line x1="35" y1="100" x2="165" y2="100" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
+            <line x1="54" y1="54" x2="146" y2="146" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
+            <line x1="146" y1="54" x2="54" y2="146" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="8" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="100" cy="100" r="4" fill="#FFD84D" opacity="0.5"/>
+            <circle cx="85" cy="72" r="2" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="115" cy="68" r="1.5" fill="#FFD84D" opacity="0.25"/>
+            <circle cx="130" cy="90" r="2" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="125" cy="115" r="1.5" fill="#FFD84D" opacity="0.25"/>
+            <circle cx="100" cy="135" r="2" fill="#FFD84D" opacity="0.3"/>
+            <circle cx="75" cy="120" r="1.5" fill="#FFD84D" opacity="0.25"/>
+            <circle cx="70" cy="95" r="2" fill="#FFD84D" opacity="0.3"/>
           </svg>
         </div>
 
-        <!-- Condensation water drops on cube faces -->
-        <div class="cube-droplets">
-          <div class="cube-drop cd-1"></div>
-          <div class="cube-drop cd-2"></div>
-          <div class="cube-drop cd-3"></div>
-          <div class="cube-drop cd-4"></div>
-          <div class="cube-drop cd-5"></div>
-          <div class="cube-drop cd-6"></div>
-          <div class="cube-drop cd-7"></div>
+        <!-- Floating info badges -->
+        <div class="hero-lemon-badge badge-top">
+          <div class="hero-lemon-badge-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <div class="hero-lemon-badge-text">Vitamin C</div>
+            <div class="hero-lemon-badge-sub">100% Daily Value</div>
+          </div>
         </div>
 
-        <!-- Frost shimmer on edges -->
-        <div class="cube-frost frost-top"></div>
-        <div class="cube-frost frost-right"></div>
+        <div class="hero-lemon-badge badge-bottom">
+          <div class="hero-lemon-badge-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+          </div>
+          <div>
+            <div class="hero-lemon-badge-text">Zero Sugar</div>
+            <div class="hero-lemon-badge-sub">Clean ingredients only</div>
+          </div>
+        </div>
       </div>
-
-      <!-- Floating mini cubes with lemon tint -->
-      <div class="float-cube fc-1">
-        <div class="fc-inner-slice"></div>
-      </div>
-      <div class="float-cube fc-2">
-        <div class="fc-inner-slice"></div>
-      </div>
-      <div class="float-cube fc-3"></div>
-      <div class="float-cube fc-4"></div>
-
-      <!-- Dripping lemon juice -->
-      <div class="juice-drips">
-        <div class="juice-drip jd-1"></div>
-        <div class="juice-drip jd-2"></div>
-        <div class="juice-drip jd-3"></div>
-      </div>
-
-      <!-- Particles -->
-      <div class="scene-particles">
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-        <div class="s-particle"></div>
-      </div>
-
-      <!-- Scan lines -->
-      <div class="scene-scanline"></div>
-      <div class="scene-scanline"></div>
     </div>
 
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-num" data-count="0">0g</div>
+        <div class="stat-num">0g</div>
         <div class="stat-label">Sugar</div>
       </div>
       <div class="stat">
@@ -211,6 +152,18 @@
     </div>
   </section>
 
+  <!-- FREE DELIVERY BANNER -->
+  <div style="padding: 0 48px;">
+    <div class="free-delivery-banner">
+      <div class="delivery-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="delivery-text">
+        <strong>Free Delivery</strong> on all orders over $30! Fresh frozen cubes shipped in insulated packaging with dry ice. Orders ship same-day before 2pm EST.
+      </div>
+    </div>
+  </div>
+
   <!-- MARQUEE -->
   <div class="marquee-section">
     <div class="marquee-track" id="marquee">
@@ -221,7 +174,7 @@
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h0m6 0h0m-6 6h6"/></svg> FROZEN FRESH</div>
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l2.5 2.5L16 9"/></svg> NO ARTIFICIAL INGREDIENTS</div>
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VITAMIN C BOOST</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> PORTABLE & CONVENIENT</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> FREE SHIPPING $30+</div>
       <!-- duplicate for seamless loop -->
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg> STAY HYDRATED</div>
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/></svg> REAL LEMON <span>JUICE</span></div>
@@ -230,7 +183,7 @@
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h0m6 0h0m-6 6h6"/></svg> FROZEN FRESH</div>
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l2.5 2.5L16 9"/></svg> NO ARTIFICIAL INGREDIENTS</div>
       <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VITAMIN C BOOST</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> PORTABLE & CONVENIENT</div>
+      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> FREE SHIPPING $30+</div>
     </div>
   </div>
 
@@ -320,7 +273,6 @@
         </div>
         <div class="step-title">Drop The Cube</div>
         <p class="step-desc">Take one Panifit cube from your pack and drop it into any glass or bottle of water. Works with cold, warm, or sparkling water.</p>
-        <div class="step-connector"></div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
@@ -334,7 +286,6 @@
         </div>
         <div class="step-title">Watch It Dissolve</div>
         <p class="step-desc">The cube dissolves in seconds, releasing a bright burst of lemon flavor, vitamins, and electrolytes straight into your water.</p>
-        <div class="step-connector"></div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
@@ -406,7 +357,7 @@
   <!-- LIFESTYLE -->
   <section class="lifestyle-section" id="lifestyle">
     <p class="section-tag">// Who It's For</p>
-    <h2 class="section-title">Made For People<br><em style="color:var(--yellow);font-style:normal;">Who Move</em></h2>
+    <h2 class="section-title">Made For People<br><em style="color:var(--yellow-dark);font-style:normal;">Who Move</em></h2>
     <p class="section-sub" style="margin: 0 auto; text-align: center;">
       Whether you're crushing a workout or powering through a long workday, Panifit cubes keep you hydrated and dialed in.
     </p>
@@ -564,11 +515,24 @@
     </div>
   </section>
 
-    <!-- Form -->
-  <section class="form_card">
-    <h3> Subscribe to our News Letter</h3>
-    <div id="form-b862e69f-6e6b-4c75-91ba-e07caeaf7e87"></div>
-<script async src="https://forms.infobip.com/forms/b862e69f-6e6b-4c75-91ba-e07caeaf7e87.js"></script>
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="newsletter-card">
+      <div class="newsletter-copy">
+        <span class="newsletter-eyebrow">Join the list</span>
+        <h3>Get launch drops, clean hydration tips, and delivery offers.</h3>
+        <p>Use the form below to join the Panifit list. We keep it simple: product news, helpful reminders, and the occasional free delivery push.</p>
+        <div class="newsletter-points">
+          <span>Free delivery over $30</span>
+          <span>New flavor alerts</span>
+          <span>No spam</span>
+        </div>
+      </div>
+      <div class="infobip-form-wrapper">
+        <div id="form-b862e69f-6e6b-4c75-91ba-e07caeaf7e87"></div>
+        <script async src="https://forms.infobip.com/forms/b862e69f-6e6b-4c75-91ba-e07caeaf7e87.js"></script>
+      </div>
+    </div>
   </section>
 
   <!-- CTA -->
@@ -592,7 +556,7 @@
   <footer>
     <div class="footer-grid">
       <div>
-        <a class="nav-logo" href="index.html" style="display:block;margin-bottom:16px;">PANI<span style="color:var(--white)">FIT</span></a>
+        <a class="nav-logo" href="index.html" style="display:block;margin-bottom:16px;">PANI<span>FIT</span></a>
         <p class="footer-brand-desc">The smartest, cleanest way to turn plain water into a vitamin-powered lemon drink. No sugar. No junk. Just drop and go.</p>
       </div>
       <div>
@@ -619,7 +583,7 @@
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#">Shipping & Returns</a></li>
           <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Subscribe & Save</a></li>
+          <li><a href="account/login.php">My Orders</a></li>
         </ul>
       </div>
     </div>
@@ -642,6 +606,41 @@
     </div>
   </footer>
 
+  <!-- CUSTOM CHAT WIDGET -->
+  <button class="panifit-chat-btn" id="chatBtn" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <div class="chat-badge"></div>
+  </button>
+
+  <div class="panifit-chat-panel" id="chatPanel">
+    <div class="panifit-chat-header">
+      <div>
+        <div class="panifit-chat-header-avatar">P</div>
+      </div>
+      <div class="panifit-chat-header-info">
+        <h4>Panifit Concierge</h4>
+        <p>Questions about shipping, flavors or your order?</p>
+      </div>
+      <div class="panifit-chat-status">
+        <span></span>
+        Usually replies fast
+      </div>
+      <button class="panifit-chat-close" onclick="toggleChat()">&times;</button>
+    </div>
+    <div class="panifit-chat-body" id="chatBody">
+      <div class="chat-msg bot">
+        <div class="chat-bubble">Hi there. Need help choosing a pack, checking free delivery over $30, or tracking an order? Send us a message.</div>
+        <div class="chat-time">Just now</div>
+      </div>
+    </div>
+    <div class="panifit-chat-footer">
+      <input type="text" id="chatInput" placeholder="Ask about delivery, products, or orders..." onkeypress="if(event.key==='Enter')sendChatMsg()" />
+      <button class="panifit-chat-send" onclick="sendChatMsg()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </button>
+    </div>
+  </div>
+
   <script src="app.js"></script>
   <script>
     // FAQ toggle
@@ -651,18 +650,25 @@
       document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
       if (!wasOpen) item.classList.add('open');
     }
+
+    // Chat widget
+    function toggleChat() {
+      document.getElementById('chatPanel').classList.toggle('open');
+    }
+    function sendChatMsg() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      const body = document.getElementById('chatBody');
+      body.innerHTML += '<div class="chat-msg user"><div class="chat-bubble">' + msg.replace(/</g,'&lt;') + '</div><div class="chat-time">Just now</div></div>';
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+      setTimeout(() => {
+        body.innerHTML += '<div class="chat-msg bot"><div class="chat-bubble">Thanks. A team member will reply shortly. For immediate help, check the <a href="#faq" style="color:var(--yellow-dark);font-weight:600;">FAQ</a> or sign in to <a href="account/login.php" style="color:var(--yellow-dark);font-weight:600;">track your order</a>.</div><div class="chat-time">Just now</div></div>';
+        body.scrollTop = body.scrollHeight;
+      }, 1000);
+    }
   </script>
-
-  <!--Live Chat Implementation-->
-  <script>
-(function(I,n,f,o,b,i,p){
-I[b]=I[b]||function(){(I[b].q=I[b].q||[]).push(arguments)};
-I[b].t=1*new Date();i=n.createElement(f);i.async=1;i.src=o;
-p=n.getElementsByTagName(f)[0];p.parentNode.insertBefore(i,p)})
-(window,document,'script','https://livechat.infobip.com/widget.js','liveChat');
-
-liveChat('init', '9d4265f3-5361-4532-9eb7-7cbc6b334eaa');
-</script>
 
 </body>
 </html>

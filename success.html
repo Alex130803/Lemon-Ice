@@ -37,13 +37,13 @@
       <p class="success-sub" id="successMsg">
         Thank you for your order! Your Panifit cubes are being prepared and will ship within 24 hours. Check your email for tracking details.
       </p>
-      <div id="orderDetails" style="text-align:left; background:var(--dark); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:32px;"></div>
+      <div id="orderDetails" style="text-align:left; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:32px;"></div>
       <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
         <a href="products.html" class="btn-primary">
           Order More <span class="btn-arrow">&rarr;</span>
         </a>
-        <a href="index.html" class="btn-secondary">
-          Back to Home
+        <a href="account/orders.php" class="btn-secondary">
+          Track My Orders
         </a>
       </div>
     </div>
@@ -51,80 +51,79 @@
 
   <script src="app.js"></script>
   <script>
-    // Gather order info from URL params + localStorage
     const params = new URLSearchParams(window.location.search);
     const orderId = params.get('order_id');
     const sessionId = params.get('session_id');
-
     const shipping = JSON.parse(localStorage.getItem('panifit_shipping') || 'null');
     const pending = JSON.parse(localStorage.getItem('panifit_pending_order') || 'null');
+    const detailsEl = document.getElementById('orderDetails');
+    const fallbackOrderId = orderId || (pending && pending.orderId) || 'PF-' + Date.now();
 
-    // Clear cart on successful payment
     localStorage.setItem('panifit_cart', '[]');
     updateCartCount();
 
-    const finalOrderId = orderId || (pending && pending.orderId) || 'PF-' + Date.now();
-    const total = pending ? pending.total : 0;
-
-    const detailsEl = document.getElementById('orderDetails');
-
-    if (shipping || orderId) {
-      const rows = [];
-
-      rows.push(`
-        <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border);">
-          <span style="color:var(--gray); font-size:13px;">Order ID</span>
-          <span style="font-family:'Space Mono',monospace; font-size:13px; color:var(--yellow);">${finalOrderId}</span>
-        </div>
-      `);
-
-      if (shipping && shipping.email) {
-        rows.push(`
-          <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border);">
-            <span style="color:var(--gray); font-size:13px;">Email</span>
-            <span style="font-size:13px;">${shipping.email}</span>
-          </div>
-        `);
-      }
-
-      if (shipping && shipping.city) {
-        rows.push(`
-          <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border);">
-            <span style="color:var(--gray); font-size:13px;">Ships To</span>
-            <span style="font-size:13px;">${shipping.address || ''}, ${shipping.city}, ${shipping.state} ${shipping.zip}</span>
-          </div>
-        `);
-      }
-
-      if (total > 0) {
-        const finalShipping = total >= 30 ? 0 : 5.99;
-        const finalTotal = total + finalShipping;
-        rows.push(`
-          <div style="display:flex; justify-content:space-between;">
-            <span style="color:var(--gray); font-size:13px;">Total Charged</span>
-            <span style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--yellow);">$${finalTotal.toFixed(2)}</span>
-          </div>
-        `);
-      }
+    function renderSummary(order) {
+      const rows = [
+        `<div style="display:flex;justify-content:space-between;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);font-size:13px;">Order ID</span><span style="font-family:'Space Mono',monospace;font-size:13px;color:var(--yellow-dark);">${order.orderId}</span></div>`,
+        `<div style="display:flex;justify-content:space-between;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);font-size:13px;">Email</span><span style="font-size:13px;">${order.email || (shipping && shipping.email) || ''}</span></div>`,
+        `<div style="display:flex;justify-content:space-between;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);font-size:13px;">Status</span><span style="font-size:13px;text-transform:capitalize;">${order.status}</span></div>`,
+        `<div style="display:flex;justify-content:space-between;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);font-size:13px;">Ships To</span><span style="font-size:13px;text-align:right;">${[order.address, order.city, order.state, order.zip].filter(Boolean).join(', ')}</span></div>`,
+        `<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);font-size:13px;">Total Charged</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--yellow-dark);">$${Number(order.total || 0).toFixed(2)}</span></div>`
+      ];
 
       detailsEl.innerHTML = rows.join('');
 
-      if (shipping && shipping.firstName) {
-        document.getElementById('successMsg').innerHTML =
-          `Thank you, <strong>${shipping.firstName}</strong>! Your Panifit cubes are being prepared and will ship within 24 hours. A confirmation email has been sent to <strong>${shipping.email || 'your email'}</strong>.`;
-      }
-    } else {
-      detailsEl.innerHTML = `
-        <div style="display:flex; justify-content:space-between;">
-          <span style="color:var(--gray); font-size:13px;">Order ID</span>
-          <span style="font-family:'Space Mono',monospace; font-size:13px; color:var(--yellow);">${finalOrderId}</span>
-        </div>
-      `;
+      const firstName = order.firstName || (shipping && shipping.firstName) || '';
+      const email = order.email || (shipping && shipping.email) || 'your email';
+      document.getElementById('successMsg').innerHTML = `Thank you${firstName ? ', <strong>' + firstName + '</strong>' : ''}! Your payment is confirmed and a nicely formatted order email has been sent to <strong>${email}</strong>.`;
     }
 
-    // Cleanup localStorage
-    localStorage.removeItem('panifit_shipping');
-    localStorage.removeItem('panifit_pending_order');
+    async function confirmOrder() {
+      if (!orderId || !sessionId) {
+        renderSummary({
+          orderId: fallbackOrderId,
+          email: shipping && shipping.email,
+          status: 'paid',
+          address: shipping && shipping.address,
+          city: shipping && shipping.city,
+          state: shipping && shipping.state,
+          zip: shipping && shipping.zip,
+          total: pending ? (pending.total >= 30 ? pending.total : pending.total + 5.99) : 0,
+          firstName: shipping && shipping.firstName
+        });
+        return;
+      }
+
+      try {
+        const response = await fetch('api/confirm-order.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderId, sessionId })
+        });
+        const data = await response.json();
+        if (!response.ok || data.error) {
+          throw new Error(data.error || 'Order confirmation failed');
+        }
+        renderSummary(data.order);
+      } catch (error) {
+        renderSummary({
+          orderId: fallbackOrderId,
+          email: shipping && shipping.email,
+          status: 'paid',
+          address: shipping && shipping.address,
+          city: shipping && shipping.city,
+          state: shipping && shipping.state,
+          zip: shipping && shipping.zip,
+          total: pending ? (pending.total >= 30 ? pending.total : pending.total + 5.99) : 0,
+          firstName: shipping && shipping.firstName
+        });
+      } finally {
+        localStorage.removeItem('panifit_shipping');
+        localStorage.removeItem('panifit_pending_order');
+      }
+    }
+
+    confirmOrder();
   </script>
 </body>
 </html>

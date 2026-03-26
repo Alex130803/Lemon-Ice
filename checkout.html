@@ -26,6 +26,10 @@
       <li><a href="products.html">Shop</a></li>
     </ul>
     <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
       <button class="nav-cart-btn" onclick="toggleCart()" aria-label="Open cart">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
         <span class="nav-cart-count" id="cartCount">0</span>
@@ -53,6 +57,12 @@
     <!-- LEFT: FORM -->
     <div class="checkout-form">
       <h2>Checkout</h2>
+      <div class="free-delivery-banner" style="margin:0 0 28px;max-width:none;">
+        <div class="delivery-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="delivery-text"><strong>Free Delivery</strong> applies automatically once your subtotal passes $30.</div>
+      </div>
 
       <!-- Canceled notice -->
       <div id="cancelNotice" style="display:none; background:rgba(255,85,85,0.08); border:1px solid rgba(255,85,85,0.2); border-radius:12px; padding:16px 20px; margin-bottom:24px; color:#ff8888; font-size:14px;">
@@ -139,6 +149,15 @@
           </div>
 
           <div id="checkout-error" style="color: #ff5555; font-size: 13px; margin-top: 12px; display:none;"></div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Order Tracking</div>
+          <div class="checkout-account-note">
+            <strong>Want live order tracking?</strong>
+            Create an account later with the same checkout email and your orders will appear automatically.
+            <a href="account/signup.php">Create account</a>
+          </div>
         </div>
 
         <button type="submit" class="checkout-submit" id="submitBtn">

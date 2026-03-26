@@ -24,14 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// ===== STRIPE SECRET KEY (test mode) =====
-$stripeSecretKey = 'sk_test_51LD8Z1ArYlvjGATtmGXjFX4oSEYWKkpFMng7HFZUi6NeK0KYUIVUbs7TOREJAKwYVWa19xhfPQgBVDYpEMVsYuYu00YxRDVBKy';
+require_once __DIR__ . '/../admin/config.php';
 
-// Get the base URL dynamically
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$host = $_SERVER['HTTP_HOST'];
-$basePath = dirname(dirname($_SERVER['SCRIPT_NAME']));
-$baseUrl = $protocol . '://' . $host . rtrim($basePath, '/');
+$baseUrl = getSiteBaseUrl();
 
 // Parse request
 $input = json_decode(file_get_contents('php://input'), true);
@@ -79,7 +74,7 @@ foreach ($input['cart'] as $index => $item) {
 }
 
 // Add shipping as a line item if applicable
-$shipping = $subtotal >= 30 ? 0 : 5.99;
+$shipping = shippingAmount($subtotal);
 if ($shipping > 0) {
     $si = count($input['cart']);
     $lineItems["line_items[{$si}][price_data][currency]"] = 'usd';
@@ -93,7 +88,6 @@ $orderId = 'PF-' . time() . '-' . rand(1000, 9999);
 $total = $subtotal + $shipping;
 
 // ===== SAVE ORDER TO DATABASE =====
-require_once __DIR__ . '/../admin/config.php';
 $db = getDB();
 $stmt = $db->prepare("INSERT INTO orders (order_id, email, first_name, last_name, address, city, state, zip, phone, cart_json, subtotal, shipping, total, status) VALUES (:oid, :email, :fn, :ln, :addr, :city, :state, :zip, :phone, :cart, :sub, :ship, :total, 'pending')");
 $stmt->bindValue(':oid', $orderId);
@@ -128,7 +122,7 @@ curl_setopt_array($ch, [
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => http_build_query($postData),
     CURLOPT_HTTPHEADER => [
-        'Authorization: Bearer ' . $stripeSecretKey,
+        'Authorization: Bearer ' . STRIPE_SECRET_KEY,
     ],
     CURLOPT_TIMEOUT => 30,
 ]);
