@@ -1,674 +1,1378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panifit — Drop. Stir. Hydrate.</title>
-  <meta name="description" content="Premium vitamin-powered frozen lemon cubes. Drop one in water for instant hydration with real lemon juice, electrolytes, and Vitamin C. Zero sugar." />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='15' y='15' width='70' height='70' rx='18' fill='%23FFD84D' opacity='0.9'/><rect x='25' y='25' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='3' opacity='0.5'/></svg>">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panifit — Drop. Stir. Hydrate.</title>
+    <meta
+      name="description"
+      content="Premium vitamin-powered frozen lemon cubes. Drop one in water for instant hydration with real lemon juice, electrolytes, and Vitamin C. Zero sugar."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='15' y='15' width='70' height='70' rx='18' fill='%23FFD84D' opacity='0.9'/><rect x='25' y='25' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='3' opacity='0.5'/></svg>"
+    />
 
-  <!-- CART DRAWER -->
-  <div class="cart-overlay" id="cartOverlay">
-    <div class="cart-drawer" id="cartDrawer">
-      <div class="cart-header">
-        <h2>Your Cart</h2>
-        <button class="cart-close" onclick="toggleCart()" aria-label="Close cart">&times;</button>
+    <style>
+      /* ── Hero image inside the circle ── */
+      .hero-lemon-circle {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-lemon-img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 48px rgba(255, 216, 77, 0.28));
+        position: relative;
+        z-index: 1;
+        /* inherits the gentleFloat animation from the parent circle */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CART DRAWER -->
+    <div class="cart-overlay" id="cartOverlay">
+      <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button
+            class="cart-close"
+            onclick="toggleCart()"
+            aria-label="Close cart"
+          >
+            &times;
+          </button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-footer" id="cartFooter"></div>
       </div>
-      <div id="cartItems"></div>
-      <div class="cart-footer" id="cartFooter"></div>
     </div>
-  </div>
 
-  <!-- TOAST -->
-  <div class="toast" id="toast">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-    <span id="toastMsg">Added to cart</span>
-  </div>
-
-  <!-- NAV -->
-  <nav id="navbar">
-    <a class="nav-logo" href="index.html">PANI<span>FIT</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#how-it-works">How It Works</a></li>
-      <li><a href="#benefits">Benefits</a></li>
-      <li><a href="#lifestyle">Who It's For</a></li>
-      <li><a href="#testimonials">Reviews</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="products.html" class="nav-cta">Shop Now</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-      </button>
-      <button class="nav-cart-btn" onclick="toggleCart()" aria-label="Open cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-        <span class="nav-cart-count" id="cartCount">0</span>
-      </button>
-      <a href="account/login.php" class="nav-cart-btn" aria-label="Account" style="text-decoration:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </a>
-      <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <path d="M20 6L9 17l-5-5" />
+      </svg>
+      <span id="toastMsg">Added to cart</span>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-
-    <div class="hero-content">
-      <div class="hero-tag">
-        <span class="pulse-dot"></span>
-        Everyday hydration, made simple
-      </div>
-      <h1>
-        DROP.<br>
-        <em>STIR.</em><br>
-        <span class="outline">HYDRATE.</span>
-      </h1>
-      <p class="hero-sub">
-        Panifit turns plain water into a fresh lemon drink with vitamins and electrolytes. Clean ingredients, no sugar, and free delivery once your cart passes $30.
-      </p>
-      <div class="hero-actions">
-        <a href="products.html" class="btn-primary">
-          Shop Panifit <span class="btn-arrow">&rarr;</span>
+    <!-- NAV -->
+    <nav id="navbar">
+      <a class="nav-logo" href="index.html">PANI<span>FIT</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#benefits">Benefits</a></li>
+        <li><a href="#lifestyle">Who It's For</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="products.html" class="nav-cta">Shop Now</a></li>
+      </ul>
+      <div class="nav-right">
+        <button
+          class="theme-toggle"
+          onclick="toggleTheme()"
+          aria-label="Toggle dark mode"
+        >
+          <svg
+            class="icon-moon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+          <svg
+            class="icon-sun"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            />
+          </svg>
+        </button>
+        <button
+          class="nav-cart-btn"
+          onclick="toggleCart()"
+          aria-label="Open cart"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path
+              d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+            />
+          </svg>
+          <span class="nav-cart-count" id="cartCount">0</span>
+        </button>
+        <a
+          href="account/login.php"
+          class="nav-cart-btn"
+          aria-label="Account"
+          style="text-decoration: none"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
         </a>
-        <a href="#how-it-works" class="btn-secondary">
-          See how it works <span class="btn-arrow">&darr;</span>
-        </a>
+        <button
+          class="nav-hamburger"
+          onclick="toggleMenu()"
+          aria-label="Toggle menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </div>
+    </nav>
 
-    <!-- HERO VISUAL (Clean lemon illustration) -->
-    <div class="hero-scene">
-      <div class="hero-lemon-visual">
-        <div class="hero-lemon-circle">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="80" fill="rgba(255,216,77,0.15)"/>
-            <circle cx="100" cy="100" r="80" stroke="#FFD84D" stroke-width="2" opacity="0.6"/>
-            <circle cx="100" cy="100" r="65" stroke="rgba(255,216,77,0.3)" stroke-width="1.5"/>
-            <circle cx="100" cy="100" r="62" fill="rgba(255,216,77,0.06)"/>
-            <line x1="100" y1="35" x2="100" y2="165" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
-            <line x1="35" y1="100" x2="165" y2="100" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
-            <line x1="54" y1="54" x2="146" y2="146" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
-            <line x1="146" y1="54" x2="54" y2="146" stroke="rgba(255,216,77,0.25)" stroke-width="1.5"/>
-            <circle cx="100" cy="100" r="8" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="100" cy="100" r="4" fill="#FFD84D" opacity="0.5"/>
-            <circle cx="85" cy="72" r="2" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="115" cy="68" r="1.5" fill="#FFD84D" opacity="0.25"/>
-            <circle cx="130" cy="90" r="2" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="125" cy="115" r="1.5" fill="#FFD84D" opacity="0.25"/>
-            <circle cx="100" cy="135" r="2" fill="#FFD84D" opacity="0.3"/>
-            <circle cx="75" cy="120" r="1.5" fill="#FFD84D" opacity="0.25"/>
-            <circle cx="70" cy="95" r="2" fill="#FFD84D" opacity="0.3"/>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="pulse-dot"></span>
+          Everyday hydration, made simple
+        </div>
+        <h1>
+          DROP.<br />
+          <em>STIR.</em><br />
+          <span class="outline">HYDRATE.</span>
+        </h1>
+        <p class="hero-sub">
+          Panifit turns plain water into a fresh lemon drink with vitamins and
+          electrolytes. Clean ingredients, no sugar, and free delivery once your
+          cart passes $30.
+        </p>
+        <div class="hero-actions">
+          <a href="products.html" class="btn-primary">
+            Shop Panifit <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a href="#how-it-works" class="btn-secondary">
+            See how it works <span class="btn-arrow">&darr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL -->
+      <div class="hero-scene">
+        <div class="hero-lemon-visual">
+          <!-- Circle now contains the real product photo -->
+          <div class="hero-lemon-circle">
+            <img
+              src="assets/img/lemon_homepage.png"
+              alt="Panifit vitamin lemon cube"
+              class="hero-lemon-img"
+            />
+          </div>
+
+          <!-- Floating info badges -->
+          <div class="hero-lemon-badge badge-top">
+            <div class="hero-lemon-badge-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div>
+              <div class="hero-lemon-badge-text">Vitamin C</div>
+              <div class="hero-lemon-badge-sub">100% Daily Value</div>
+            </div>
+          </div>
+
+          <div class="hero-lemon-badge badge-bottom">
+            <div class="hero-lemon-badge-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M4.93 4.93l14.14 14.14" />
+              </svg>
+            </div>
+            <div>
+              <div class="hero-lemon-badge-text">Zero Sugar</div>
+              <div class="hero-lemon-badge-sub">Clean ingredients only</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">0g</div>
+          <div class="stat-label">Sugar</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Natural</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5sec</div>
+          <div class="stat-label">To Dissolve</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3k+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FREE DELIVERY BANNER -->
+    <div style="padding: 0 48px">
+      <div class="free-delivery-banner">
+        <div class="delivery-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <rect x="1" y="3" width="15" height="13" />
+            <path d="M16 8h4l3 3v5h-7V8z" />
+            <circle cx="5.5" cy="18.5" r="2.5" />
+            <circle cx="18.5" cy="18.5" r="2.5" />
           </svg>
         </div>
-
-        <!-- Floating info badges -->
-        <div class="hero-lemon-badge badge-top">
-          <div class="hero-lemon-badge-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <div class="hero-lemon-badge-text">Vitamin C</div>
-            <div class="hero-lemon-badge-sub">100% Daily Value</div>
-          </div>
-        </div>
-
-        <div class="hero-lemon-badge badge-bottom">
-          <div class="hero-lemon-badge-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
-          </div>
-          <div>
-            <div class="hero-lemon-badge-text">Zero Sugar</div>
-            <div class="hero-lemon-badge-sub">Clean ingredients only</div>
-          </div>
+        <div class="delivery-text">
+          <strong>Free Delivery</strong> on all orders over $30! Fresh frozen
+          cubes shipped in insulated packaging with dry ice. Orders ship
+          same-day before 2pm EST.
         </div>
       </div>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">0g</div>
-        <div class="stat-label">Sugar</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Natural</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">5sec</div>
-        <div class="stat-label">To Dissolve</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3k+</div>
-        <div class="stat-label">Happy Customers</div>
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+      <div class="marquee-track" id="marquee">
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"
+            />
+          </svg>
+          STAY HYDRATED
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <ellipse cx="12" cy="12" rx="7" ry="9" />
+            <path d="M12 3c0 0 3 4 3 9s-3 9-3 9" />
+          </svg>
+          REAL LEMON <span>JUICE</span>
+        </div>
+        <div class="marquee-item">
+          <svg class="m-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
+          </svg>
+          NATURAL ELECTROLYTES
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+          ZERO SUGAR
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <rect x="4" y="4" width="16" height="16" rx="4" />
+            <path d="M9 9h0m6 0h0m-6 6h6" />
+          </svg>
+          FROZEN FRESH
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"
+            />
+            <path d="M8 12l2.5 2.5L16 9" />
+          </svg>
+          NO ARTIFICIAL INGREDIENTS
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          VITAMIN C BOOST
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path
+              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+            />
+          </svg>
+          FREE SHIPPING $30+
+        </div>
+        <!-- duplicate for seamless loop -->
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"
+            />
+          </svg>
+          STAY HYDRATED
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <ellipse cx="12" cy="12" rx="7" ry="9" />
+            <path d="M12 3c0 0 3 4 3 9s-3 9-3 9" />
+          </svg>
+          REAL LEMON <span>JUICE</span>
+        </div>
+        <div class="marquee-item">
+          <svg class="m-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
+          </svg>
+          NATURAL ELECTROLYTES
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+          ZERO SUGAR
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <rect x="4" y="4" width="16" height="16" rx="4" />
+            <path d="M9 9h0m6 0h0m-6 6h6" />
+          </svg>
+          FROZEN FRESH
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"
+            />
+            <path d="M8 12l2.5 2.5L16 9" />
+          </svg>
+          NO ARTIFICIAL INGREDIENTS
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          VITAMIN C BOOST
+        </div>
+        <div class="marquee-item">
+          <svg
+            class="m-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path
+              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+            />
+          </svg>
+          FREE SHIPPING $30+
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- FREE DELIVERY BANNER -->
-  <div style="padding: 0 48px;">
-    <div class="free-delivery-banner">
-      <div class="delivery-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <!-- PRODUCT EXPLANATION -->
+    <section id="about">
+      <div class="explain-grid">
+        <div class="explain-visual">
+          <div class="explain-cube-scene">
+            <div class="explain-cube">
+              <svg viewBox="0 0 60 60" fill="none">
+                <ellipse
+                  cx="30"
+                  cy="30"
+                  rx="20"
+                  ry="24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="M30 6c0 0 7 10 7 24s-7 24-7 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  opacity="0.6"
+                />
+                <path
+                  d="M30 6c0 0-7 10-7 24s7 24 7 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  opacity="0.6"
+                />
+                <circle
+                  cx="30"
+                  cy="30"
+                  r="4"
+                  fill="currentColor"
+                  opacity="0.4"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="explain-drops">
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+          </div>
+          <div class="explain-label">100% Natural</div>
+        </div>
+
+        <div>
+          <p class="section-tag">// What Is It</p>
+          <h2 class="section-title">The Smartest Way To Drink Water</h2>
+          <p class="section-sub">
+            Panifit cubes are frozen concentrate cubes made from real lemon
+            juice, packed with vitamins and natural electrolytes. One cube, one
+            great drink.
+          </p>
+          <ul class="explain-features">
+            <li>
+              <div class="feat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <ellipse cx="12" cy="12" rx="7" ry="9" />
+                  <path d="M12 3c0 0 3 4 3 9s-3 9-3 9" />
+                  <path d="M12 3c0 0-3 4-3 9s3 9 3 9" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Real Lemon Juice</div>
+                <div class="feat-desc">
+                  Made from 100% cold-pressed lemon concentrate. No artificial
+                  flavoring, ever.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="feat-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Natural Electrolytes</div>
+                <div class="feat-desc">
+                  Sodium, potassium and magnesium from natural sources for
+                  genuine hydration.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="feat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Vitamin C Boost</div>
+                <div class="feat-desc">
+                  Each cube delivers your daily dose of immune-supporting
+                  Vitamin C.
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="feat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M4.93 4.93l14.14 14.14" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Zero Sugar, Zero Junk</div>
+                <div class="feat-desc">
+                  No sugar, no artificial sweeteners, no preservatives. Clean
+                  label guaranteed.
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="delivery-text">
-        <strong>Free Delivery</strong> on all orders over $30! Fresh frozen cubes shipped in insulated packaging with dry ice. Orders ship same-day before 2pm EST.
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- MARQUEE -->
-  <div class="marquee-section">
-    <div class="marquee-track" id="marquee">
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg> STAY HYDRATED</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/></svg> REAL LEMON <span>JUICE</span></div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg> NATURAL ELECTROLYTES</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ZERO SUGAR</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h0m6 0h0m-6 6h6"/></svg> FROZEN FRESH</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l2.5 2.5L16 9"/></svg> NO ARTIFICIAL INGREDIENTS</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VITAMIN C BOOST</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> FREE SHIPPING $30+</div>
-      <!-- duplicate for seamless loop -->
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg> STAY HYDRATED</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/></svg> REAL LEMON <span>JUICE</span></div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg> NATURAL ELECTROLYTES</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ZERO SUGAR</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h0m6 0h0m-6 6h6"/></svg> FROZEN FRESH</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l2.5 2.5L16 9"/></svg> NO ARTIFICIAL INGREDIENTS</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VITAMIN C BOOST</div>
-      <div class="marquee-item"><svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> FREE SHIPPING $30+</div>
-    </div>
-  </div>
-
-  <!-- PRODUCT EXPLANATION -->
-  <section id="about">
-    <div class="explain-grid">
-      <div class="explain-visual">
-        <div class="explain-cube-scene">
-          <div class="explain-cube">
-            <svg viewBox="0 0 60 60" fill="none">
-              <ellipse cx="30" cy="30" rx="20" ry="24" stroke="currentColor" stroke-width="2"/>
-              <path d="M30 6c0 0 7 10 7 24s-7 24-7 24" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-              <path d="M30 6c0 0-7 10-7 24s7 24 7 24" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-              <circle cx="30" cy="30" r="4" fill="currentColor" opacity="0.4"/>
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how-it-works">
+      <p class="section-tag">// How It Works</p>
+      <h2 class="section-title">Three Steps. That's It.</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-icon">
+            <svg
+              viewBox="0 0 48 48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            >
+              <rect x="10" y="10" width="28" height="28" rx="7" />
+              <path d="M24 6v8m-10 10H6m18 18v-8m18-10h-8" opacity="0.4" />
+              <path d="M24 18v12M18 24h12" opacity="0.3" />
             </svg>
           </div>
+          <div class="step-title">Drop The Cube</div>
+          <p class="step-desc">
+            Take one Panifit cube from your pack and drop it into any glass or
+            bottle of water. Works with cold, warm, or sparkling water.
+          </p>
         </div>
-        <div class="explain-drops">
-          <div class="drop"></div>
-          <div class="drop"></div>
-          <div class="drop"></div>
-        </div>
-        <div class="explain-label">100% Natural</div>
-      </div>
-
-      <div>
-        <p class="section-tag">// What Is It</p>
-        <h2 class="section-title">The Smartest Way To Drink Water</h2>
-        <p class="section-sub">
-          Panifit cubes are frozen concentrate cubes made from real lemon juice, packed with vitamins and natural electrolytes. One cube, one great drink.
-        </p>
-        <ul class="explain-features">
-          <li>
-            <div class="feat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M12 3c0 0 3 4 3 9s-3 9-3 9"/><path d="M12 3c0 0-3 4-3 9s3 9 3 9"/></svg>
-            </div>
-            <div>
-              <div class="feat-title">Real Lemon Juice</div>
-              <div class="feat-desc">Made from 100% cold-pressed lemon concentrate. No artificial flavoring, ever.</div>
-            </div>
-          </li>
-          <li>
-            <div class="feat-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
-            </div>
-            <div>
-              <div class="feat-title">Natural Electrolytes</div>
-              <div class="feat-desc">Sodium, potassium and magnesium from natural sources for genuine hydration.</div>
-            </div>
-          </li>
-          <li>
-            <div class="feat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div>
-              <div class="feat-title">Vitamin C Boost</div>
-              <div class="feat-desc">Each cube delivers your daily dose of immune-supporting Vitamin C.</div>
-            </div>
-          </li>
-          <li>
-            <div class="feat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
-            </div>
-            <div>
-              <div class="feat-title">Zero Sugar, Zero Junk</div>
-              <div class="feat-desc">No sugar, no artificial sweeteners, no preservatives. Clean label guaranteed.</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-section" id="how-it-works">
-    <p class="section-tag">// How It Works</p>
-    <h2 class="section-title">Three Steps. That's It.</h2>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <rect x="10" y="10" width="28" height="28" rx="7"/>
-            <path d="M24 6v8m-10 10H6m18 18v-8m18-10h-8" opacity="0.4"/>
-            <path d="M24 18v12M18 24h12" opacity="0.3"/>
-          </svg>
-        </div>
-        <div class="step-title">Drop The Cube</div>
-        <p class="step-desc">Take one Panifit cube from your pack and drop it into any glass or bottle of water. Works with cold, warm, or sparkling water.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <circle cx="24" cy="24" r="18"/>
-            <circle cx="24" cy="24" r="8" opacity="0.5"/>
-            <circle cx="24" cy="24" r="2" fill="currentColor"/>
-            <path d="M24 6v4m0 28v4M42 24h-4M10 24H6" opacity="0.3"/>
-          </svg>
-        </div>
-        <div class="step-title">Watch It Dissolve</div>
-        <p class="step-desc">The cube dissolves in seconds, releasing a bright burst of lemon flavor, vitamins, and electrolytes straight into your water.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <path d="M16 42h16"/>
-            <path d="M12 6h24l-4 24a4 4 0 01-4 3.46h-8A4 4 0 0116 30L12 6z"/>
-            <path d="M18 16c2-2 6-2 8 0s6 2 8 0" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="step-title">Enjoy & Hydrate</div>
-        <p class="step-desc">Sip your perfectly refreshing, vitamin-powered lemon drink. Hydration has never been this clean, simple, or delicious.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFITS -->
-  <section id="benefits">
-    <p class="section-tag">// Why Panifit</p>
-    <h2 class="section-title">Built For Your Body</h2>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <div class="benefit-badge">SCIENCE-BACKED</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 4c-2 4-8 8-8 16a8 8 0 0016 0c0-8-6-12-8-16z"/>
-            <path d="M16 24c2 2 6 2 8 0" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="benefit-title">Deep Hydration</div>
-        <p class="benefit-desc">Electrolytes help your body absorb and retain water more effectively than plain water. Stay hydrated longer with every cube.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-badge">IMMUNE BOOST</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 4l4 8h8l-6 5 2 8-8-5-8 5 2-8-6-5h8l4-8z"/>
-          </svg>
-        </div>
-        <div class="benefit-title">Vitamin C Power</div>
-        <p class="benefit-desc">Each cube packs your recommended daily Vitamin C, supporting your immune system and helping fight oxidative stress.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-badge">CLEAN LABEL</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6c-4 4-8 2-12 4 0 8 2 16 12 24 10-8 12-16 12-24-4-2-8 0-12-4z"/>
-            <path d="M14 20l4 4 8-8" opacity="0.6"/>
-          </svg>
-        </div>
-        <div class="benefit-title">Zero Junk</div>
-        <p class="benefit-desc">No sugar, no artificial sweeteners, no fillers. Just clean, real ingredients you can actually read and pronounce.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-badge">LIFESTYLE</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <rect x="8" y="12" width="24" height="20" rx="4"/>
-            <path d="M14 12V8a6 6 0 0112 0v4"/>
-            <circle cx="20" cy="24" r="3" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="benefit-title">Anywhere, Anytime</div>
-        <p class="benefit-desc">Portable cubes fit any lifestyle. Gym bag, desk drawer, backpack -- always have your hydration upgrade within reach.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- LIFESTYLE -->
-  <section class="lifestyle-section" id="lifestyle">
-    <p class="section-tag">// Who It's For</p>
-    <h2 class="section-title">Made For People<br><em style="color:var(--yellow-dark);font-style:normal;">Who Move</em></h2>
-    <p class="section-sub" style="margin: 0 auto; text-align: center;">
-      Whether you're crushing a workout or powering through a long workday, Panifit cubes keep you hydrated and dialed in.
-    </p>
-    <div class="audience-grid">
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 30h6v-10h8v10h6"/><path d="M10 20l4-8h12l4 8" opacity="0.6"/></svg>
-        </div>
-        <div class="audience-label">Athletes</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="8" r="4"/><path d="M14 36l2-12-4-6h16l-4 6 2 12"/><path d="M12 18h16"/></svg>
-        </div>
-        <div class="audience-label">Runners</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 28h24v4H8z"/><path d="M10 28V16l10-8 10 8v12"/><circle cx="20" cy="22" r="3" opacity="0.5"/></svg>
-        </div>
-        <div class="audience-label">Students</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="12" width="28" height="20" rx="3"/><path d="M14 12V8h12v4"/><path d="M6 20h28" opacity="0.4"/></svg>
-        </div>
-        <div class="audience-label">Office Workers</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 32l16-24 16 24H4z"/><path d="M20 8l4 6" opacity="0.4"/><path d="M12 24h16" opacity="0.3"/></svg>
-        </div>
-        <div class="audience-label">Travelers</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="20" r="14"/><path d="M20 10v10l6 6"/></svg>
-        </div>
-        <div class="audience-label">Wellness</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="30" r="8"/><circle cx="20" cy="12" r="4" opacity="0.5"/><path d="M20 16v6"/></svg>
-        </div>
-        <div class="audience-label">Cyclists</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6v8m0 12v8M6 20h8m12 0h8"/><path d="M11 11l5 5m8 8l5 5M29 11l-5 5m-8 8l-5 5" opacity="0.5"/></svg>
-        </div>
-        <div class="audience-label">Health-Conscious</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials-section" id="testimonials">
-    <p class="section-tag">// Real Reviews</p>
-    <h2 class="section-title">People Are Talking</h2>
-    <div class="testimonials-grid">
-      <div class="testimonial">
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="testimonial-text">"I replaced my morning energy drink with Panifit and I've never felt better. Clean, refreshing, and I love knowing exactly what I'm putting in my body."</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">J</div>
-          <div>
-            <div class="author-name">Jake M.</div>
-            <div class="author-role">CrossFit Athlete</div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-icon">
+            <svg
+              viewBox="0 0 48 48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            >
+              <circle cx="24" cy="24" r="18" />
+              <circle cx="24" cy="24" r="8" opacity="0.5" />
+              <circle cx="24" cy="24" r="2" fill="currentColor" />
+              <path d="M24 6v4m0 28v4M42 24h-4M10 24H6" opacity="0.3" />
+            </svg>
           </div>
+          <div class="step-title">Watch It Dissolve</div>
+          <p class="step-desc">
+            The cube dissolves in seconds, releasing a bright burst of lemon
+            flavor, vitamins, and electrolytes straight into your water.
+          </p>
         </div>
-      </div>
-      <div class="testimonial">
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="testimonial-text">"I keep a pack in my desk drawer and one in my gym bag. It's genuinely changed how much water I drink. Finally something that makes hydration exciting."</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">S</div>
-          <div>
-            <div class="author-name">Sofia R.</div>
-            <div class="author-role">Marketing Manager</div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-icon">
+            <svg
+              viewBox="0 0 48 48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            >
+              <path d="M16 42h16" />
+              <path d="M12 6h24l-4 24a4 4 0 01-4 3.46h-8A4 4 0 0116 30L12 6z" />
+              <path d="M18 16c2-2 6-2 8 0s6 2 8 0" opacity="0.5" />
+            </svg>
           </div>
+          <div class="step-title">Enjoy & Hydrate</div>
+          <p class="step-desc">
+            Sip your perfectly refreshing, vitamin-powered lemon drink.
+            Hydration has never been this clean, simple, or delicious.
+          </p>
         </div>
       </div>
-      <div class="testimonial">
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="testimonial-text">"As a runner, hydration is everything. These cubes are a game-changer -- no sticky syrups, no gritty powders. Just pop one in and go."</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">D</div>
-          <div>
-            <div class="author-name">Daniel T.</div>
-            <div class="author-role">Marathon Runner</div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section id="benefits">
+      <p class="section-tag">// Why Panifit</p>
+      <h2 class="section-title">Built For Your Body</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-badge">SCIENCE-BACKED</div>
+          <div class="benefit-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 4c-2 4-8 8-8 16a8 8 0 0016 0c0-8-6-12-8-16z" />
+              <path d="M16 24c2 2 6 2 8 0" opacity="0.5" />
+            </svg>
           </div>
+          <div class="benefit-title">Deep Hydration</div>
+          <p class="benefit-desc">
+            Electrolytes help your body absorb and retain water more effectively
+            than plain water. Stay hydrated longer with every cube.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-badge">IMMUNE BOOST</div>
+          <div class="benefit-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 4l4 8h8l-6 5 2 8-8-5-8 5 2-8-6-5h8l4-8z" />
+            </svg>
+          </div>
+          <div class="benefit-title">Vitamin C Power</div>
+          <p class="benefit-desc">
+            Each cube packs your recommended daily Vitamin C, supporting your
+            immune system and helping fight oxidative stress.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-badge">CLEAN LABEL</div>
+          <div class="benefit-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M20 6c-4 4-8 2-12 4 0 8 2 16 12 24 10-8 12-16 12-24-4-2-8 0-12-4z"
+              />
+              <path d="M14 20l4 4 8-8" opacity="0.6" />
+            </svg>
+          </div>
+          <div class="benefit-title">Zero Junk</div>
+          <p class="benefit-desc">
+            No sugar, no artificial sweeteners, no fillers. Just clean, real
+            ingredients you can actually read and pronounce.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-badge">LIFESTYLE</div>
+          <div class="benefit-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <rect x="8" y="12" width="24" height="20" rx="4" />
+              <path d="M14 12V8a6 6 0 0112 0v4" />
+              <circle cx="20" cy="24" r="3" opacity="0.5" />
+            </svg>
+          </div>
+          <div class="benefit-title">Anywhere, Anytime</div>
+          <p class="benefit-desc">
+            Portable cubes fit any lifestyle. Gym bag, desk drawer, backpack —
+            always have your hydration upgrade within reach.
+          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FAQ -->
-  <section class="faq-section" id="faq">
-    <p class="section-tag">// Common Questions</p>
-    <h2 class="section-title">FAQ</h2>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          What exactly is a Panifit cube?
-          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-answer"><p>A Panifit cube is a frozen concentrate cube made from real cold-pressed lemon juice, natural electrolytes (sodium, potassium, magnesium), and Vitamin C. Drop one in water and it dissolves in seconds into a refreshing, vitamin-powered lemon drink.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          How many cubes come in each pack?
-          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-answer"><p>We offer multiple pack sizes: Starter (30 cubes), Value (60 cubes), Pro (90 cubes), and Mega (120 cubes). Subscription plans are also available with 15% savings.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Is there any sugar or artificial ingredients?
-          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-answer"><p>Absolutely zero. No sugar, no artificial sweeteners, no preservatives, no colors. Just real lemon juice, natural electrolytes, Vitamin C, and purified water. That's it.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          How do you ship frozen products?
-          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-answer"><p>All orders ship in insulated packaging with dry ice to keep cubes frozen during transit. We ship same-day for orders placed before 2pm EST, with 2-5 business day delivery. Free shipping on orders over $30.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          What's the shelf life?
-          <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-answer"><p>Kept frozen, Panifit cubes last up to 12 months. Once you take one out, just drop it in water within a few minutes for the best experience.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER -->
-  <section class="newsletter-section">
-    <div class="newsletter-card">
-      <div class="newsletter-copy">
-        <span class="newsletter-eyebrow">Join the list</span>
-        <h3>Get launch drops, clean hydration tips, and delivery offers.</h3>
-        <p>Use the form below to join the Panifit list. We keep it simple: product news, helpful reminders, and the occasional free delivery push.</p>
-        <div class="newsletter-points">
-          <span>Free delivery over $30</span>
-          <span>New flavor alerts</span>
-          <span>No spam</span>
-        </div>
-      </div>
-      <div class="infobip-form-wrapper">
-        <div id="form-b862e69f-6e6b-4c75-91ba-e07caeaf7e87"></div>
-        <script async src="https://forms.infobip.com/forms/b862e69f-6e6b-4c75-91ba-e07caeaf7e87.js"></script>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" id="shop">
-    <div style="position:relative;z-index:2;">
-      <p class="section-tag">// Get Started Today</p>
-      <h2 class="section-title">Upgrade<br><em>Your Water.</em></h2>
-      <p class="section-sub">
-        Try Panifit cubes today. Your body will thank you. Free shipping on orders over $30.
+    <!-- LIFESTYLE -->
+    <section class="lifestyle-section" id="lifestyle">
+      <p class="section-tag">// Who It's For</p>
+      <h2 class="section-title">
+        Made For People<br /><em
+          style="color: var(--yellow-dark); font-style: normal"
+          >Who Move</em
+        >
+      </h2>
+      <p class="section-sub" style="margin: 0 auto; text-align: center">
+        Whether you're crushing a workout or powering through a long workday,
+        Panifit cubes keep you hydrated and dialed in.
       </p>
-      <div class="cta-actions">
-        <a href="products.html" class="btn-primary" style="font-size:17px;padding:20px 48px;">
-          Shop Now -- From $14.99 <span class="btn-arrow">&rarr;</span>
-        </a>
-        <a href="#benefits" class="btn-secondary">Learn More &uarr;</a>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M10 30h6v-10h8v10h6" />
+              <path d="M10 20l4-8h12l4 8" opacity="0.6" />
+            </svg>
+          </div>
+          <div class="audience-label">Athletes</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <circle cx="20" cy="8" r="4" />
+              <path d="M14 36l2-12-4-6h16l-4 6 2 12" />
+              <path d="M12 18h16" />
+            </svg>
+          </div>
+          <div class="audience-label">Runners</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M8 28h24v4H8z" />
+              <path d="M10 28V16l10-8 10 8v12" />
+              <circle cx="20" cy="22" r="3" opacity="0.5" />
+            </svg>
+          </div>
+          <div class="audience-label">Students</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <rect x="6" y="12" width="28" height="20" rx="3" />
+              <path d="M14 12V8h12v4" />
+              <path d="M6 20h28" opacity="0.4" />
+            </svg>
+          </div>
+          <div class="audience-label">Office Workers</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M4 32l16-24 16 24H4z" />
+              <path d="M20 8l4 6" opacity="0.4" />
+              <path d="M12 24h16" opacity="0.3" />
+            </svg>
+          </div>
+          <div class="audience-label">Travelers</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <circle cx="20" cy="20" r="14" />
+              <path d="M20 10v10l6 6" />
+            </svg>
+          </div>
+          <div class="audience-label">Wellness</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <circle cx="20" cy="30" r="8" />
+              <circle cx="20" cy="12" r="4" opacity="0.5" />
+              <path d="M20 16v6" />
+            </svg>
+          </div>
+          <div class="audience-label">Cyclists</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">
+            <svg
+              viewBox="0 0 40 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M20 6v8m0 12v8M6 20h8m12 0h8" />
+              <path d="M11 11l5 5m8 8l5 5M29 11l-5 5m-8 8l-5 5" opacity="0.5" />
+            </svg>
+          </div>
+          <div class="audience-label">Health-Conscious</div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <a class="nav-logo" href="index.html" style="display:block;margin-bottom:16px;">PANI<span>FIT</span></a>
-        <p class="footer-brand-desc">The smartest, cleanest way to turn plain water into a vitamin-powered lemon drink. No sugar. No junk. Just drop and go.</p>
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section" id="testimonials">
+      <p class="section-tag">// Real Reviews</p>
+      <h2 class="section-title">People Are Talking</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+          <p class="testimonial-text">
+            "I replaced my morning energy drink with Panifit and I've never felt
+            better. Clean, refreshing, and I love knowing exactly what I'm
+            putting in my body."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">J</div>
+            <div>
+              <div class="author-name">Jake M.</div>
+              <div class="author-role">CrossFit Athlete</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+          <p class="testimonial-text">
+            "I keep a pack in my desk drawer and one in my gym bag. It's
+            genuinely changed how much water I drink. Finally something that
+            makes hydration exciting."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">S</div>
+            <div>
+              <div class="author-name">Sofia R.</div>
+              <div class="author-role">Marketing Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+          <p class="testimonial-text">
+            "As a runner, hydration is everything. These cubes are a
+            game-changer — no sticky syrups, no gritty powders. Just pop one in
+            and go."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">D</div>
+            <div>
+              <div class="author-name">Daniel T.</div>
+              <div class="author-role">Marathon Runner</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="footer-heading">Product</div>
-        <ul class="footer-links">
-          <li><a href="products.html">Shop Now</a></li>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#benefits">Benefits</a></li>
-          <li><a href="#">Ingredients</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-heading">Company</div>
-        <ul class="footer-links">
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Press</a></li>
-          <li><a href="#">Careers</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-heading">Support</div>
-        <ul class="footer-links">
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#">Shipping & Returns</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="account/login.php">My Orders</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Panifit. All rights reserved.</p>
-      <div class="footer-socials">
-        <a href="#" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="#" aria-label="X/Twitter">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="#" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.43v-7.15a8.16 8.16 0 005.58 2.2V11.2a4.85 4.85 0 01-2.68-.81 4.83 4.83 0 01-1.32-3.7z"/></svg>
-        </a>
-        <a href="#" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </a>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- CUSTOM CHAT WIDGET -->
-  <button class="panifit-chat-btn" id="chatBtn" onclick="toggleChat()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-    <div class="chat-badge"></div>
-  </button>
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <p class="section-tag">// Common Questions</p>
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What exactly is a Panifit cube?
+            <svg
+              class="faq-toggle"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              A Panifit cube is a frozen concentrate cube made from real
+              cold-pressed lemon juice, natural electrolytes (sodium, potassium,
+              magnesium), and Vitamin C. Drop one in water and it dissolves in
+              seconds into a refreshing, vitamin-powered lemon drink.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How many cubes come in each pack?
+            <svg
+              class="faq-toggle"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              We offer multiple pack sizes: Starter (30 cubes), Value (60
+              cubes), Pro (90 cubes), and Mega (120 cubes). Subscription plans
+              are also available with 15% savings.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is there any sugar or artificial ingredients?
+            <svg
+              class="faq-toggle"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Absolutely zero. No sugar, no artificial sweeteners, no
+              preservatives, no colors. Just real lemon juice, natural
+              electrolytes, Vitamin C, and purified water. That's it.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do you ship frozen products?
+            <svg
+              class="faq-toggle"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              All orders ship in insulated packaging with dry ice to keep cubes
+              frozen during transit. We ship same-day for orders placed before
+              2pm EST, with 2-5 business day delivery. Free shipping on orders
+              over $30.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What's the shelf life?
+            <svg
+              class="faq-toggle"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Kept frozen, Panifit cubes last up to 12 months. Once you take one
+              out, just drop it in water within a few minutes for the best
+              experience.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="panifit-chat-panel" id="chatPanel">
-    <div class="panifit-chat-header">
-      <div>
-        <div class="panifit-chat-header-avatar">P</div>
+    <!-- NEWSLETTER -->
+    <section class="newsletter-section">
+      <div class="newsletter-card">
+        <div class="newsletter-copy">
+          <span class="newsletter-eyebrow">Join the list</span>
+          <h3>Get launch drops, clean hydration tips, and delivery offers.</h3>
+          <p>
+            Use the form below to join the Panifit list. We keep it simple:
+            product news, helpful reminders, and the occasional free delivery
+            push.
+          </p>
+          <div class="newsletter-points">
+            <span>Free delivery over $30</span>
+            <span>New flavor alerts</span>
+            <span>No spam</span>
+          </div>
+        </div>
+        <div class="infobip-form-wrapper">
+          <div id="form-b862e69f-6e6b-4c75-91ba-e07caeaf7e87"></div>
+          <script
+            async
+            src="https://forms.infobip.com/forms/b862e69f-6e6b-4c75-91ba-e07caeaf7e87.js"
+          ></script>
+        </div>
       </div>
-      <div class="panifit-chat-header-info">
-        <h4>Panifit Concierge</h4>
-        <p>Questions about shipping, flavors or your order?</p>
-      </div>
-      <div class="panifit-chat-status">
-        <span></span>
-        Usually replies fast
-      </div>
-      <button class="panifit-chat-close" onclick="toggleChat()">&times;</button>
-    </div>
-    <div class="panifit-chat-body" id="chatBody">
-      <div class="chat-msg bot">
-        <div class="chat-bubble">Hi there. Need help choosing a pack, checking free delivery over $30, or tracking an order? Send us a message.</div>
-        <div class="chat-time">Just now</div>
-      </div>
-    </div>
-    <div class="panifit-chat-footer">
-      <input type="text" id="chatInput" placeholder="Ask about delivery, products, or orders..." onkeypress="if(event.key==='Enter')sendChatMsg()" />
-      <button class="panifit-chat-send" onclick="sendChatMsg()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-      </button>
-    </div>
-  </div>
+    </section>
 
-  <script src="app.js"></script>
-  <script>
-    // FAQ toggle
-    function toggleFaq(btn) {
-      const item = btn.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    }
+    <!-- CTA -->
+    <section class="cta-section" id="shop">
+      <div style="position: relative; z-index: 2">
+        <p class="section-tag">// Get Started Today</p>
+        <h2 class="section-title">Upgrade<br /><em>Your Water.</em></h2>
+        <p class="section-sub">
+          Try Panifit cubes today. Your body will thank you. Free shipping on
+          orders over $30.
+        </p>
+        <div class="cta-actions">
+          <a
+            href="products.html"
+            class="btn-primary"
+            style="font-size: 17px; padding: 20px 48px"
+          >
+            Shop Now — From $14.99 <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a href="#benefits" class="btn-secondary">Learn More &uarr;</a>
+        </div>
+      </div>
+    </section>
 
-    // Chat widget
-    function toggleChat() {
-      document.getElementById('chatPanel').classList.toggle('open');
-    }
-    function sendChatMsg() {
-      const input = document.getElementById('chatInput');
-      const msg = input.value.trim();
-      if (!msg) return;
-      const body = document.getElementById('chatBody');
-      body.innerHTML += '<div class="chat-msg user"><div class="chat-bubble">' + msg.replace(/</g,'&lt;') + '</div><div class="chat-time">Just now</div></div>';
-      input.value = '';
-      body.scrollTop = body.scrollHeight;
-      setTimeout(() => {
-        body.innerHTML += '<div class="chat-msg bot"><div class="chat-bubble">Thanks. A team member will reply shortly. For immediate help, check the <a href="#faq" style="color:var(--yellow-dark);font-weight:600;">FAQ</a> or sign in to <a href="account/login.php" style="color:var(--yellow-dark);font-weight:600;">track your order</a>.</div><div class="chat-time">Just now</div></div>';
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <a
+            class="nav-logo"
+            href="index.html"
+            style="display: block; margin-bottom: 16px"
+            >PANI<span>FIT</span></a
+          >
+          <p class="footer-brand-desc">
+            The smartest, cleanest way to turn plain water into a
+            vitamin-powered lemon drink. No sugar. No junk. Just drop and go.
+          </p>
+        </div>
+        <div>
+          <div class="footer-heading">Product</div>
+          <ul class="footer-links">
+            <li><a href="products.html">Shop Now</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#">Ingredients</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Support</div>
+          <ul class="footer-links">
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="account/login.php">My Orders</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Panifit. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="1.5"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
+          </a>
+          <a href="#" aria-label="X/Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.43v-7.15a8.16 8.16 0 005.58 2.2V11.2a4.85 4.85 0 01-2.68-.81 4.83 4.83 0 01-1.32-3.7z"
+              />
+            </svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+      // FAQ toggle
+      function toggleFaq(btn) {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains("open");
+        document
+          .querySelectorAll(".faq-item")
+          .forEach((i) => i.classList.remove("open"));
+        if (!wasOpen) item.classList.add("open");
+      }
+
+      // Chat widget
+      function toggleChat() {
+        document.getElementById("chatPanel").classList.toggle("open");
+      }
+      function sendChatMsg() {
+        const input = document.getElementById("chatInput");
+        const msg = input.value.trim();
+        if (!msg) return;
+        const body = document.getElementById("chatBody");
+        body.innerHTML +=
+          '<div class="chat-msg user"><div class="chat-bubble">' +
+          msg.replace(/</g, "&lt;") +
+          '</div><div class="chat-time">Just now</div></div>';
+        input.value = "";
         body.scrollTop = body.scrollHeight;
-      }, 1000);
-    }
-  </script>
+        setTimeout(() => {
+          body.innerHTML +=
+            '<div class="chat-msg bot"><div class="chat-bubble">Thanks. A team member will reply shortly. For immediate help, check the <a href="#faq" style="color:var(--yellow-dark);font-weight:600;">FAQ</a> or sign in to <a href="account/login.php" style="color:var(--yellow-dark);font-weight:600;">track your order</a>.</div><div class="chat-time">Just now</div></div>';
+          body.scrollTop = body.scrollHeight;
+        }, 1000);
+      }
+    </script>
+    <script>
+      (function (I, n, f, o, b, i, p) {
+        I[b] =
+          I[b] ||
+          function () {
+            (I[b].q = I[b].q || []).push(arguments);
+          };
+        I[b].t = 1 * new Date();
+        i = n.createElement(f);
+        i.async = 1;
+        i.src = o;
+        p = n.getElementsByTagName(f)[0];
+        p.parentNode.insertBefore(i, p);
+      })(
+        window,
+        document,
+        "script",
+        "https://livechat.infobip.com/widget.js",
+        "liveChat",
+      );
 
-</body>
+      liveChat("init", "9d4265f3-5361-4532-9eb7-7cbc6b334eaa");
+    </script>
+  </body>
 </html>
