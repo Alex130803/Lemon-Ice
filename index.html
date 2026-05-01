@@ -4,14 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panifit — Drop. Stir. Hydrate.</title>
-    
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NLBJT5W9');</script>
-    <!-- End Google Tag Manager -->
     <meta
       name="description"
       content="Premium vitamin-powered frozen lemon cubes. Drop one in water for instant hydration with real lemon juice, electrolytes, and Vitamin C. Zero sugar."
@@ -22,32 +14,35 @@
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='15' y='15' width='70' height='70' rx='18' fill='%23FFD84D' opacity='0.9'/><rect x='25' y='25' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='3' opacity='0.5'/></svg>"
     />
 
-    <style>
-      /* ── Hero image inside the circle ── */
-      .hero-lemon-circle {
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    <!-- ===== Google Analytics (GA4) ===== -->
+    <!-- Replace G-XXXXXXXXXX with your real Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', {
+        page_title: document.title,
+        page_path: location.pathname
+      });
+      // Helper used by CTA onclicks — fails silently if gtag not loaded
+      window.trackCTA = function(label, location) {
+        try {
+          gtag('event', 'cta_click', {
+            event_category: 'engagement',
+            event_label: label,
+            cta_location: location || 'unknown'
+          });
+        } catch (e) {}
+      };
+    </script>
 
-      .hero-lemon-img {
-        width: 90%;
-        height: 90%;
-        object-fit: contain;
-        filter: drop-shadow(0 20px 48px rgba(255, 216, 77, 0.28));
-        position: relative;
-        z-index: 1;
-        /* inherits the gentleFloat animation from the parent circle */
-      }
+    <style>
+      /* Hero slider overrides kept in HTML for scoping */
     </style>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLBJT5W9"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->  
-      <!-- CART DRAWER -->
+    <!-- CART DRAWER -->
     <div class="cart-overlay" id="cartOverlay">
       <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
@@ -79,13 +74,39 @@
       <span id="toastMsg">Added to cart</span>
     </div>
 
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announce-bar" id="announceBar">
+      <div class="announce-track">
+        <a href="products.html" class="announce-item active" onclick="trackCTA('announce_free_shipping','announce_bar')">
+          <span class="announce-icon">🚚</span>
+          <span>Free shipping on orders over <strong>$30</strong></span>
+          <span class="announce-cta">Shop &rarr;</span>
+        </a>
+        <a href="products.html" class="announce-item" onclick="trackCTA('announce_sub_save','announce_bar')">
+          <span class="announce-icon">⚡</span>
+          <span><strong>Save 15%</strong> with Subscribe &amp; Save</span>
+          <span class="announce-cta">Start saving &rarr;</span>
+        </a>
+        <a href="#benefits" class="announce-item" onclick="trackCTA('announce_vit_c','announce_bar')">
+          <span class="announce-icon">🍋</span>
+          <span>100% Daily Vitamin C · Zero Sugar</span>
+          <span class="announce-cta">Learn more &rarr;</span>
+        </a>
+        <a href="products.html" class="announce-item" onclick="trackCTA('announce_new_flavors','announce_bar')">
+          <span class="announce-icon">✨</span>
+          <span>New flavors dropping soon — get on the list</span>
+          <span class="announce-cta">Shop now &rarr;</span>
+        </a>
+      </div>
+    </div>
+
     <!-- NAV -->
     <nav id="navbar">
       <a class="nav-logo" href="index.html">PANI<span>FIT</span></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#benefits">Benefits</a></li>
-        <li><a href="#lifestyle">Who It's For</a></li>
+        <li><a href="#packs">Packs</a></li>
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="products.html" class="nav-cta">Shop Now</a></li>
@@ -188,61 +209,66 @@
           cart passes $30.
         </p>
         <div class="hero-actions">
-          <a href="products.html" class="btn-primary">
+          <a href="products.html" class="btn-primary" onclick="trackCTA('hero_shop','hero')">
             Shop Panifit <span class="btn-arrow">&rarr;</span>
           </a>
-          <a href="#how-it-works" class="btn-secondary">
+          <a href="#how-it-works" class="btn-secondary" onclick="trackCTA('hero_how_it_works','hero')">
             See how it works <span class="btn-arrow">&darr;</span>
           </a>
         </div>
+        <div class="hero-trust">
+          <span class="hero-trust-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+          <span class="hero-trust-text"><strong>4.9/5</strong> · Loved by <strong>3,000+</strong> hydrators</span>
+        </div>
       </div>
 
-      <!-- HERO VISUAL -->
+      <!-- HERO SLIDER -->
       <div class="hero-scene">
-        <div class="hero-lemon-visual">
-          <!-- Circle now contains the real product photo -->
-          <div class="hero-lemon-circle">
-            <img
-              src="assets/img/lemon_homepage.png"
-              alt="Panifit vitamin lemon cube"
-              class="hero-lemon-img"
-            />
+        <div class="hero-slider" id="heroSlider">
+          <div class="hero-slider-track" id="heroSliderTrack">
+            <div class="hero-slide">
+              <img src="https://images.pexels.com/photos/10226372/pexels-photo-10226372.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop" alt="Man drinking water while running" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-tag">Stay Hydrated</span>
+              </div>
+            </div>
+            <div class="hero-slide">
+              <img src="https://images.pexels.com/photos/9790254/pexels-photo-9790254.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop" alt="Runner holding water bottle" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-tag">Fuel Your Body</span>
+              </div>
+            </div>
+            <div class="hero-slide">
+              <img src="https://images.pexels.com/photos/2470021/pexels-photo-2470021.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop" alt="Marathon runner drinking water" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-tag">Peak Performance</span>
+              </div>
+            </div>
+            <div class="hero-slide">
+              <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=900&h=500&fit=crop&q=80" alt="Gym workout hydration" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-tag">Power Through</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Floating info badges -->
-          <div class="hero-lemon-badge badge-top">
-            <div class="hero-lemon-badge-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <div>
-              <div class="hero-lemon-badge-text">Vitamin C</div>
-              <div class="hero-lemon-badge-sub">100% Daily Value</div>
-            </div>
+          <!-- Slider controls -->
+          <div class="hero-slider-dots" id="heroSliderDots">
+            <button class="hero-dot active" data-slide="0"></button>
+            <button class="hero-dot" data-slide="1"></button>
+            <button class="hero-dot" data-slide="2"></button>
+            <button class="hero-dot" data-slide="3"></button>
           </div>
 
-          <div class="hero-lemon-badge badge-bottom">
-            <div class="hero-lemon-badge-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M4.93 4.93l14.14 14.14" />
-              </svg>
-            </div>
-            <div>
-              <div class="hero-lemon-badge-text">Zero Sugar</div>
-              <div class="hero-lemon-badge-sub">Clean ingredients only</div>
-            </div>
+          <!-- Progress bar -->
+          <div class="hero-slider-progress">
+            <div class="hero-slider-progress-bar" id="heroProgressBar"></div>
           </div>
         </div>
       </div>
@@ -289,264 +315,129 @@
           cubes shipped in insulated packaging with dry ice. Orders ship
           same-day before 2pm EST.
         </div>
+        <a href="products.html" class="delivery-cta" onclick="trackCTA('banner_unlock_shipping','free_delivery_banner')">
+          Unlock Free Shipping <span class="btn-arrow">&rarr;</span>
+        </a>
       </div>
     </div>
 
-    <!-- MARQUEE -->
-    <div class="marquee-section">
-      <div class="marquee-track" id="marquee">
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"
-            />
-          </svg>
-          STAY HYDRATED
+    <!-- LEMON ICE CTA -->
+    <section class="ice-cta-section" id="lemon-ice-cubes">
+      <div class="ice-cta-shell">
+        <div class="ice-cta-copy">
+          <div class="section-tag">Frozen Fresh</div>
+          <h2 class="section-title">LEMON ICE CUBES, BUT BETTER.</h2>
+          <p class="section-sub">
+            The drop-in ritual is the product story. Real lemon, bright citrus,
+            chilled cube visuals, and a clean hydration pitch all in one place.
+          </p>
+          <div class="ice-cta-meta">
+            <span>Made for cold water</span>
+            <span>Zero sugar</span>
+            <span>Vitamin C + electrolytes</span>
+          </div>
+          <div class="ice-cta-actions">
+            <a
+              href="products.html"
+              class="btn-primary scramble-btn"
+              data-text="Shop Panifit"
+              onclick="trackCTA('lemon_ice_shop','lemon_ice_cta')"
+            >
+              Shop Panifit
+            </a>
+            <a
+              href="#benefits"
+              class="btn-secondary"
+              onclick="trackCTA('lemon_ice_benefits','lemon_ice_cta')"
+            >
+              See the benefits <span class="btn-arrow">&rarr;</span>
+            </a>
+          </div>
         </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <ellipse cx="12" cy="12" rx="7" ry="9" />
-            <path d="M12 3c0 0 3 4 3 9s-3 9-3 9" />
-          </svg>
-          REAL LEMON <span>JUICE</span>
-        </div>
-        <div class="marquee-item">
-          <svg class="m-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
-          </svg>
-          NATURAL ELECTROLYTES
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-            />
-          </svg>
-          ZERO SUGAR
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          >
-            <rect x="4" y="4" width="16" height="16" rx="4" />
-            <path d="M9 9h0m6 0h0m-6 6h6" />
-          </svg>
-          FROZEN FRESH
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"
-            />
-            <path d="M8 12l2.5 2.5L16 9" />
-          </svg>
-          NO ARTIFICIAL INGREDIENTS
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
-          VITAMIN C BOOST
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          >
-            <path
-              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
-            />
-          </svg>
-          FREE SHIPPING $30+
-        </div>
-        <!-- duplicate for seamless loop -->
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"
-            />
-          </svg>
-          STAY HYDRATED
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <ellipse cx="12" cy="12" rx="7" ry="9" />
-            <path d="M12 3c0 0 3 4 3 9s-3 9-3 9" />
-          </svg>
-          REAL LEMON <span>JUICE</span>
-        </div>
-        <div class="marquee-item">
-          <svg class="m-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
-          </svg>
-          NATURAL ELECTROLYTES
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-            />
-          </svg>
-          ZERO SUGAR
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          >
-            <rect x="4" y="4" width="16" height="16" rx="4" />
-            <path d="M9 9h0m6 0h0m-6 6h6" />
-          </svg>
-          FROZEN FRESH
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"
-            />
-            <path d="M8 12l2.5 2.5L16 9" />
-          </svg>
-          NO ARTIFICIAL INGREDIENTS
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
-          VITAMIN C BOOST
-        </div>
-        <div class="marquee-item">
-          <svg
-            class="m-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          >
-            <path
-              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
-            />
-          </svg>
-          FREE SHIPPING $30+
+
+        <div class="ice-cta-visual">
+          <div class="ice-marquee-row ice-marquee-row-reverse" style="--duration: 36s;">
+            <div class="ice-marquee-group">
+              <article class="ice-card">
+                <img src="assets/img/ath1.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath2.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath3.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath4.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath5.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+            </div>
+            <div class="ice-marquee-group" aria-hidden="true">
+              <article class="ice-card">
+                <img src="assets/img/ath1.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath2.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath3.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath4.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath5.jpeg" alt="" />
+              </article>
+            </div>
+          </div>
+
+          <div class="ice-marquee-row" style="--duration: 32s;">
+            <div class="ice-marquee-group">
+              <article class="ice-card">
+                <img src="assets/img/ath6.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath7.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath3.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath1.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath4.jpeg" alt="Athlete fueling with Panifit" />
+              </article>
+            </div>
+            <div class="ice-marquee-group" aria-hidden="true">
+              <article class="ice-card">
+                <img src="assets/img/ath6.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath7.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath3.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath1.jpeg" alt="" />
+              </article>
+              <article class="ice-card">
+                <img src="assets/img/ath4.jpeg" alt="" />
+              </article>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- PRODUCT EXPLANATION -->
     <section id="about">
       <div class="explain-grid">
         <div class="explain-visual">
-          <div class="explain-cube-scene">
-            <div class="explain-cube">
-              <svg viewBox="0 0 60 60" fill="none">
-                <ellipse
-                  cx="30"
-                  cy="30"
-                  rx="20"
-                  ry="24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <path
-                  d="M30 6c0 0 7 10 7 24s-7 24-7 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  opacity="0.6"
-                />
-                <path
-                  d="M30 6c0 0-7 10-7 24s7 24 7 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  opacity="0.6"
-                />
-                <circle
-                  cx="30"
-                  cy="30"
-                  r="4"
-                  fill="currentColor"
-                  opacity="0.4"
-                />
-              </svg>
-            </div>
-          </div>
-          <div class="explain-drops">
-            <div class="drop"></div>
-            <div class="drop"></div>
-            <div class="drop"></div>
-          </div>
+          <img src="assets/img/lemon-falling.png" alt="Falling lemon" class="explain-lemon-img" />
           <div class="explain-label">100% Natural</div>
         </div>
 
@@ -634,6 +525,12 @@
               </div>
             </li>
           </ul>
+          <div class="section-cta">
+            <a href="products.html" class="btn-primary" onclick="trackCTA('about_shop_packs','about')">
+              Shop the Packs <span class="btn-arrow">&rarr;</span>
+            </a>
+            <span class="section-cta-note">From $14.99 · Free shipping $30+</span>
+          </div>
         </div>
       </div>
     </section>
@@ -707,6 +604,12 @@
             Hydration has never been this clean, simple, or delicious.
           </p>
         </div>
+      </div>
+      <div class="section-cta centered">
+        <a href="products.html" class="btn-primary" onclick="trackCTA('how_try_today','how_it_works')">
+          Try It Today <span class="btn-arrow">&rarr;</span>
+        </a>
+        <a href="#faq" class="btn-ghost" onclick="trackCTA('how_questions','how_it_works')">Got questions?</a>
       </div>
     </section>
 
@@ -794,6 +697,110 @@
             always have your hydration upgrade within reach.
           </p>
         </div>
+      </div>
+      <div class="benefits-cta">
+        <div class="benefits-cta-copy">
+          <h3>Ready to upgrade your water?</h3>
+          <p>Start with a 30-cube Starter Pack and see the difference in a week.</p>
+        </div>
+        <div class="benefits-cta-actions">
+          <a href="products.html" class="btn-primary" onclick="trackCTA('benefits_start_starter','benefits')">
+            Start With Starter Pack <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a href="products.html#subscribe" class="btn-secondary" onclick="trackCTA('benefits_subscribe','benefits')">
+            Subscribe &amp; Save 15%
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PICK YOUR PACK (DISCOUNTS) -->
+    <section class="packs-section" id="packs">
+      <div class="packs-header">
+        <p class="section-tag">// Pick Your Pack</p>
+        <h2 class="section-title">Save more, hydrate more.</h2>
+        <p class="section-sub">Bundle savings kick in automatically &mdash; up to <strong>25% off</strong> on our biggest pack.</p>
+      </div>
+      <div class="packs-grid">
+        <!-- Starter -->
+        <a href="products.html" class="pack-card" onclick="trackCTA('pack_starter','packs')">
+          <div class="pack-badge pack-badge-muted">Starter</div>
+          <div class="pack-visual pack-visual-photo" aria-hidden="true">
+            <img src="assets/img/pack-30-cubes.png" alt="" class="pack-shot" />
+          </div>
+          <div class="pack-name">30 Cubes</div>
+          <div class="pack-desc">2 weeks of clean hydration</div>
+          <div class="pack-price">
+            <span class="pack-price-now">$24</span>
+            <span class="pack-price-was">$30</span>
+          </div>
+          <div class="pack-save">Save 20%</div>
+          <span class="pack-cta">Add to cart <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+        <!-- Value (MOST POPULAR) -->
+        <a href="products.html" class="pack-card pack-card-featured" onclick="trackCTA('pack_value','packs')">
+          <div class="pack-flag">Most Popular</div>
+          <div class="pack-badge pack-badge-yellow">Value</div>
+          <div class="pack-visual pack-visual-photo" aria-hidden="true">
+            <img src="assets/img/pack-60-cubes.png" alt="" class="pack-shot" />
+          </div>
+          <div class="pack-name">60 Cubes</div>
+          <div class="pack-desc">A full month &mdash; our best seller</div>
+          <div class="pack-price">
+            <span class="pack-price-now">$42</span>
+            <span class="pack-price-was">$56</span>
+          </div>
+          <div class="pack-save pack-save-featured">Save 25% + Free Shipping</div>
+          <span class="pack-cta pack-cta-featured">Add to cart <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+        <!-- Pro -->
+        <a href="products.html" class="pack-card" onclick="trackCTA('pack_pro','packs')">
+          <div class="pack-badge pack-badge-dark">Pro</div>
+          <div class="pack-visual pack-visual-photo" aria-hidden="true">
+            <img src="assets/img/pack-90-cubes.png" alt="" class="pack-shot" />
+          </div>
+          <div class="pack-name">90 Cubes</div>
+          <div class="pack-desc">6 weeks &mdash; stock up &amp; save</div>
+          <div class="pack-price">
+            <span class="pack-price-now">$60</span>
+            <span class="pack-price-was">$84</span>
+          </div>
+          <div class="pack-save">Save 28% + Free Shipping</div>
+          <span class="pack-cta">Add to cart <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+        <!-- Mega -->
+        <a href="products.html" class="pack-card" onclick="trackCTA('pack_mega','packs')">
+          <div class="pack-badge pack-badge-blackgold">Mega</div>
+          <div class="pack-visual pack-visual-photo pack-visual-dark" aria-hidden="true">
+            <img src="assets/img/pack-120-cubes.png" alt="" class="pack-shot" />
+          </div>
+          <div class="pack-name">120 Cubes</div>
+          <div class="pack-desc">The biggest box for teams, families, and daily rituals</div>
+          <div class="pack-price">
+            <span class="pack-price-now">$78</span>
+            <span class="pack-price-was">$108</span>
+          </div>
+          <div class="pack-save">Save 28% + Max Free Shipping</div>
+          <span class="pack-cta">Add to cart <span class="btn-arrow">&rarr;</span></span>
+        </a>
+      </div>
+      <div class="packs-footer">
+        <div class="packs-footer-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+        </div>
+        <div class="packs-footer-text">
+          <strong>Subscribe &amp; Save an extra 15%</strong>
+          <span>Skip, pause or cancel any time. Delivered when you need it.</span>
+        </div>
+        <a href="products.html#subscribe" class="btn-primary" onclick="trackCTA('packs_subscribe','packs')">
+          Subscribe &amp; Save <span class="btn-arrow">&rarr;</span>
+        </a>
       </div>
     </section>
 
@@ -937,6 +944,12 @@
           <div class="audience-label">Health-Conscious</div>
         </div>
       </div>
+      <div class="section-cta centered">
+        <a href="products.html" class="btn-primary" onclick="trackCTA('lifestyle_find_my_pack','lifestyle')">
+          Find My Pack <span class="btn-arrow">&rarr;</span>
+        </a>
+        <span class="section-cta-note">Built for how you move &mdash; runners, lifters, desk warriors.</span>
+      </div>
     </section>
 
     <!-- TESTIMONIALS -->
@@ -1068,6 +1081,19 @@
           </div>
         </div>
       </div>
+      <div class="reviews-cta">
+        <div class="reviews-cta-stars" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="reviews-cta-text"><strong>4.9 / 5</strong> from 3,000+ hydrators. Your pack is one click away.</p>
+        <a href="products.html" class="btn-primary" onclick="trackCTA('reviews_join_them','testimonials')">
+          Join Them <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
     </section>
 
     <!-- FAQ -->
@@ -1186,6 +1212,17 @@
               experience.
             </p>
           </div>
+        </div>
+      </div>
+      <div class="faq-cta">
+        <p class="faq-cta-text">Still have questions? We reply within a few hours.</p>
+        <div class="faq-cta-actions">
+          <a href="products.html" class="btn-primary" onclick="trackCTA('faq_shop_now','faq')">
+            Shop Now <span class="btn-arrow">&rarr;</span>
+          </a>
+          <button type="button" class="btn-ghost" onclick="trackCTA('faq_open_chat','faq'); if(window.panifitChatOpen){window.panifitChatOpen();}">
+            Chat with us
+          </button>
         </div>
       </div>
     </section>
@@ -1329,39 +1366,134 @@
       </div>
     </footer>
 
+    <div class="panifit-chat-panel" id="chatPanel">
+      <div class="panifit-chat-header">
+        <div class="panifit-chat-header-avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+            <path d="M20 12c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8"/>
+            <path d="M14 2.5c0 1.38-0.9 2.5-2 2.5s-2-1.12-2-2.5S10.9 0 12 0s2 1.12 2 2.5z"/>
+          </svg>
+        </div>
+        <div class="panifit-chat-header-info">
+          <h4>Panifit Support</h4>
+          <p><span class="chat-online-dot"></span> Online now</p>
+        </div>
+        <div class="panifit-chat-header-actions">
+          <button class="panifit-chat-close" onclick="toggleChat()" aria-label="Close chat">&times;</button>
+        </div>
+      </div>
+
+      <div class="panifit-chat-body" id="chatBody">
+        <div class="chat-welcome">
+          <div class="chat-welcome-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-dark)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <p class="chat-welcome-title">Hey there!</p>
+          <p class="chat-welcome-sub">Have a question? We typically reply within a few minutes.</p>
+        </div>
+        <div class="chat-quick-actions">
+          <button class="chat-chip" onclick="quickMsg('Where is my order?')">Where is my order?</button>
+          <button class="chat-chip" onclick="quickMsg('Shipping info')">Shipping info</button>
+          <button class="chat-chip" onclick="quickMsg('Return policy')">Return policy</button>
+        </div>
+      </div>
+
+      <div class="panifit-chat-footer">
+        <div class="chat-input-wrap">
+          <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChatMsg()" />
+          <button class="panifit-chat-send" onclick="sendChatMsg()" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="app.js"></script>
     <script>
-      // FAQ toggle
-      function toggleFaq(btn) {
-        const item = btn.parentElement;
-        const wasOpen = item.classList.contains("open");
-        document
-          .querySelectorAll(".faq-item")
-          .forEach((i) => i.classList.remove("open"));
-        if (!wasOpen) item.classList.add("open");
-      }
+      // Hero Slider
+      (function () {
+        const track = document.getElementById("heroSliderTrack");
+        const dots = document.querySelectorAll(".hero-dot");
+        const bar = document.getElementById("heroProgressBar");
+        let current = 0;
+        const total = dots.length;
+        const interval = 4000;
+        let timer;
 
-      // Chat widget
-      function toggleChat() {
-        document.getElementById("chatPanel").classList.toggle("open");
-      }
-      function sendChatMsg() {
-        const input = document.getElementById("chatInput");
-        const msg = input.value.trim();
-        if (!msg) return;
-        const body = document.getElementById("chatBody");
-        body.innerHTML +=
-          '<div class="chat-msg user"><div class="chat-bubble">' +
-          msg.replace(/</g, "&lt;") +
-          '</div><div class="chat-time">Just now</div></div>';
-        input.value = "";
-        body.scrollTop = body.scrollHeight;
-        setTimeout(() => {
-          body.innerHTML +=
-            '<div class="chat-msg bot"><div class="chat-bubble">Thanks. A team member will reply shortly. For immediate help, check the <a href="#faq" style="color:var(--yellow-dark);font-weight:600;">FAQ</a> or sign in to <a href="account/login.php" style="color:var(--yellow-dark);font-weight:600;">track your order</a>.</div><div class="chat-time">Just now</div></div>';
-          body.scrollTop = body.scrollHeight;
-        }, 1000);
-      }
+        function goTo(i) {
+          current = i;
+          track.style.transform = "translateX(-" + (current * 100) + "%)";
+          dots.forEach((d, idx) => d.classList.toggle("active", idx === current));
+          bar.style.transition = "none";
+          bar.style.width = "0%";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              bar.style.transition = "width " + interval + "ms linear";
+              bar.style.width = "100%";
+            });
+          });
+        }
+
+        function next() { goTo((current + 1) % total); }
+
+        function startAuto() {
+          clearInterval(timer);
+          timer = setInterval(next, interval);
+        }
+
+        dots.forEach((d) => {
+          d.addEventListener("click", function () {
+            goTo(parseInt(this.dataset.slide));
+            startAuto();
+          });
+        });
+
+        // Touch/swipe support
+        let startX = 0;
+        const slider = document.getElementById("heroSlider");
+        slider.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+        slider.addEventListener("touchend", (e) => {
+          const diff = startX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 40) {
+            diff > 0 ? goTo(Math.min(current + 1, total - 1)) : goTo(Math.max(current - 1, 0));
+            startAuto();
+          }
+        });
+
+        goTo(0);
+        startAuto();
+      })();
+
+      // Announcement Bar Rotator
+      (function () {
+        const items = document.querySelectorAll("#announceBar .announce-item");
+        if (!items.length) return;
+        let idx = 0;
+        setInterval(function () {
+          items[idx].classList.remove("active");
+          idx = (idx + 1) % items.length;
+          items[idx].classList.add("active");
+        }, 4500);
+      })();
+
+      // Chat open hook (exposed so CTAs can open the custom chat widget)
+      window.panifitChatOpen = function () {
+        try {
+          if (typeof toggleChat === "function") {
+            const panel = document.getElementById("chatPanel");
+            if (panel && !panel.classList.contains("open")) toggleChat();
+          }
+        } catch (e) {}
+      };
     </script>
     <script>
       (function (I, n, f, o, b, i, p) {

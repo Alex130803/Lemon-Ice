@@ -56,6 +56,43 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 })();
 
+// ===== SCRAMBLE CTA =====
+(function initScrambleButtons() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  document.querySelectorAll('.scramble-btn[data-text]').forEach((button) => {
+    let isScrambling = false;
+    const originalText = button.dataset.text;
+
+    if (!originalText) return;
+
+    button.addEventListener('mouseenter', () => {
+      if (isScrambling) return;
+      isScrambling = true;
+
+      let iteration = 0;
+      const interval = window.setInterval(() => {
+        button.textContent = originalText
+          .split('')
+          .map((letter, index) => {
+            if (letter === ' ') return ' ';
+            if (index < iteration) return originalText[index];
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('');
+
+        if (iteration >= originalText.length) {
+          window.clearInterval(interval);
+          button.textContent = originalText;
+          isScrambling = false;
+        }
+
+        iteration += 1 / 3;
+      }, 30);
+    });
+  });
+})();
+
 
 // ===== CART SYSTEM (localStorage) =====
 const CART_KEY = 'panifit_cart';
@@ -128,11 +165,12 @@ function renderCartDrawer() {
   }
 
   const cubeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M4 12h16" opacity="0.3"/><path d="M12 4v16" opacity="0.3"/></svg>';
+  const bottleIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M10 2v3a2 2 0 0 0 .59 1.41l.82.82A2 2 0 0 1 12 8.64V20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9.5a3 3 0 0 1 .88-2.12l1.24-1.24A2 2 0 0 0 9 4.71V2"/><path d="M14 2v3a2 2 0 0 1-.59 1.41l-.82.82A2 2 0 0 0 12 8.64V20a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V9.5a3 3 0 0 0-.88-2.12l-1.24-1.24A2 2 0 0 1 15 4.71V2"/><path d="M8 13h8"/></svg>';
   const removeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
 
   itemsEl.innerHTML = '<div class="cart-items-list">' + cart.map((item, idx) => `
     <div class="cart-item">
-      <div class="cart-item-img">${cubeIcon}</div>
+      <div class="cart-item-img">${item.kind === 'bottle' ? bottleIcon : cubeIcon}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-detail">${item.detail} x${item.qty}</div>
